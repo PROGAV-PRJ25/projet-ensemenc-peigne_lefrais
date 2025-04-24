@@ -19,6 +19,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+<<<<<<< HEAD
 		SolutionGuid = {7576B788-5B24-4141-87D5-F652266CB032}
+=======
+		SolutionGuid = {106446E7-391F-4C8B-A49B-01C342FF1867}
+>>>>>>> refs/remotes/origin/main
 	EndGlobalSection
 EndGlobal
