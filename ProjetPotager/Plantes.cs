@@ -4,6 +4,7 @@ public abstract class Plante
     public string Nature { get; set; } // annuelle ou vivace 
     public string SaisonSemi { get; set; }
     public string TerrainPref { get; set; } // nature des sols 
+    public TypeTerrain TerrainCompatible { get; set; } // nouveau champ structuré
     public double Espacement { get; set; } // espace entre deux plants 
     public double PlaceNecessaire { get; set; } // surface nécessaire et occupée 
     public string VitesseCroissance { get; set; }
@@ -14,12 +15,13 @@ public abstract class Plante
     public double EspDeVie { get; set; }
     public double FruitsRecoltes { get; set; } 
 
-    public Plante (string nom, string nature, string saisonSemi, string terrainPref, double espacement, double placeNecessaire, string vitesseCroissance, double besoinEau, double besoinLum, double temperaturePref, string maladie, double espDeVie, double fruitsRecoltes)
+    public Plante (string nom, string nature, string saisonSemi, string terrainPref, TypeTerrain terrainCompatible, double espacement, double placeNecessaire, string vitesseCroissance, double besoinEau, double besoinLum, double temperaturePref, string maladie, double espDeVie, double fruitsRecoltes)
     {
         Nom = nom;
         Nature = nature;
         SaisonSemi = saisonSemi;
         TerrainPref = terrainPref;
+        TerrainCompatible = terrainCompatible;
         Espacement = espacement;
         PlaceNecessaire = placeNecessaire;
         VitesseCroissance = vitesseCroissance;
@@ -31,7 +33,7 @@ public abstract class Plante
         FruitsRecoltes = fruitsRecoltes;
     }
 
-    public abstract void AfficherEtat(); // méthode abstraites à redéfinir dans les classes filles (plantes)
+    // public abstract void AfficherEtat(); // méthode abstraites à redéfinir dans les classes filles (plantes)
     
     // Affichage simplifié pour console (symbole ou code couleur)
     public abstract string AffichageSymbole();
@@ -67,9 +69,9 @@ public abstract class Plante
 }
 
  // Classes dérivées pour chaque type de plante avec comportements spécifiques
-public class CanneASucre : PlanteComestible
+public class CanneASucre : Plante
 {
-    public CanneASucre() : base("Canne à sucre", "Vivace", "Septembre", "Sableux à côté d’une source d'eau",
+    public CanneASucre() : base("Canne à sucre", "Vivace", "Septembre", "Sableux à côté d’une source d'eau", TypeTerrain.SableuxAvecEau,
                    120, 20, "Lente (1 an)", 1500, 100, 16, "Mildiou, rouille, gommose", 10, 180)
     {
     }
@@ -88,10 +90,10 @@ public class CanneASucre : PlanteComestible
     }
     }
 
-    public class Menthe : PlanteComestible
+    public class Menthe : Plante
     {
 
-public Menthe() : base("Menthe", "Vivace", "Avril", "Sol bien drainé, humide",
+    public Menthe() : base("Menthe", "Vivace", "Avril", "Sol bien drainé, humide",TypeTerrain.DraineHumide,
                 35, 50, "Rapide (quelques jours)", 1000, 70, 20, "Rouille, mildiou", 4, 15)
     {
     }
@@ -102,9 +104,9 @@ public Menthe() : base("Menthe", "Vivace", "Avril", "Sol bien drainé, humide",
 }
 
     
-public class CitronVert : PlanteComestible
+public class CitronVert : Plante
 {
-    public CitronVert() : base("Citron vert", "Vivace", "Mai", "Drainé, fertile",
+    public CitronVert() : base("Citron vert", "Vivace", "Mai", "Drainé, fertile", TypeTerrain.DraineFertile,
                 400, 1700, "Lente (45 cm/an)", 1000, 80, 25, "Gommose, mildiou", 40, 150)
 {
 }
@@ -115,9 +117,9 @@ public class CitronVert : PlanteComestible
 }
 
 
-public class Cocotier : PlanteComestible
+public class Cocotier : Plante
 {
-    public Cocotier() : base("Cocotier", "Vivace", "Mars", "Bord de mer, sable pauvre, soleil, vent salé",
+    public Cocotier() : base("Cocotier", "Vivace", "Mars", "Bord de mer, sable pauvre, soleil, vent salé", TypeTerrain.SableMarin,
                    80, 750, "Très lente (7–10 ans)", 1460, 90, 30, "Bipolaris", 100, 35)
     {
     }
@@ -128,9 +130,9 @@ public class Cocotier : PlanteComestible
 }
 
     
-public class Cerisier : PlanteComestible
+public class Cerisier : Plante
 {
-       public Cerisier() : base("Cerisier", "Vivace", "Février", "Terrains calcaires",
+       public Cerisier() : base("Cerisier", "Vivace", "Février", "Terrains calcaires", TypeTerrain.Calcaire,
                  500, 1000, "Moyenne/rapide", 1300, 100, 20, "Champignons", 50, 300)
     {
     }
@@ -141,9 +143,9 @@ public class Cerisier : PlanteComestible
 }
 
     
-public class Ananas : PlanteComestible
+public class Ananas : Plante
 {
-    public Ananas() : base("Ananas", "Vivace", "Juin", "Sableux, bien drainé",
+    public Ananas() : base("Ananas", "Vivace", "Juin", "Sableux, bien drainé", TypeTerrain.SableuxDraine, 
                    75, 100, "Lente (2 ans)", 900, 80, 26, "Fusariose", 5, 1)
     {
     }
