@@ -1,71 +1,75 @@
-public enum TypeTerrain
+namespace Potager.Models
 {
-    SableuxAvecEau,
-    DraineHumide,
-    DraineFertile,
-    BordDeMer,
-    Calcaire,
-    SableuxDraine
-}
-
-public class Terrain
-{
-    public TypeTerrain Type { get; set; }  
-    public double Humidite { get; set; }       // entre 0 et 1
-    public double Luminosite { get; set; }     // en heures/jour
-    public double Temperature { get; set; }    // en °C
-    public double SurfaceTotale { get; set; }  // en m²
-
-    public List<Plante> Plantes { get; set; } = new List<Plante>();
-
-    public double SurfaceOccupée => Plantes.Sum(p => p.PlaceNecessaire);
-
-    private const double TOLERANCE = 0.2; // ±20% de marge autour des besoins de la plante
-
-    public Terrain() { }
-
-    public bool EstAdapté(Plante plante)
+    public enum TypeTerrain
     {
-        bool typeOK = TypeCorrespond(plante.TerrainPref);
-
-        bool humiditeOK = this.Humidite >= (1 - TOLERANCE) * plante.BesoinEau &&
-                          this.Humidite <= (1 + TOLERANCE) * plante.BesoinEau;
-
-        bool luminositeOK = this.Luminosite >= (1 - TOLERANCE) * plante.BesoinLum &&
-                            this.Luminosite <= (1 + TOLERANCE) * plante.BesoinLum;
-
-        bool temperatureOK = this.Temperature >= (1 - TOLERANCE) * plante.TemperaturePref &&
-                             this.Temperature <= (1 + TOLERANCE) * plante.TemperaturePref;
-
-        return typeOK && humiditeOK && luminositeOK && temperatureOK;
+        SableuxAvecEau,
+        DraineHumide,
+        DraineFertile,
+        BordDeMer,
+        Calcaire,
+        SableuxDraine
     }
 
-    private bool TypeCorrespond(string terrainPref)
+    public class Terrain
     {
-        return (Type == TypeTerrain.SableuxAvecEau && terrainPref.Contains("source d'eau")) ||
-               (Type == TypeTerrain.DraineHumide && terrainPref.Contains("bien drainé, humide")) ||
-               (Type == TypeTerrain.DraineFertile && terrainPref.Contains("drainé, fertile")) ||
-               (Type == TypeTerrain.BordDeMer && terrainPref.Contains("bord de mer")) ||
-               (Type == TypeTerrain.Calcaire && terrainPref.Contains("calcaire")) ||
-               (Type == TypeTerrain.SableuxDraine && terrainPref.Contains("sableux, bien drainé"));
-    }
-    public bool AjouterPlante(Plante plante)
-    {
-        if (EstAdapté(plante) && (SurfaceOccupée + plante.PlaceNecessaire <= SurfaceTotale))
+        public TypeTerrain Type { get; set; }
+        public double Humidite { get; set; }       // entre 0 et 1
+        public double Luminosite { get; set; }     // en heures/jour
+        public double Temperature { get; set; }    // en °C
+        public double SurfaceTotale { get; set; }  // en m²
+
+        public List<Plante> Plantes { get; set; } = new List<Plante>();
+
+        public double SurfaceOccupée => Plantes.Sum(p => p.PlaceNecessaire);
+
+        private const double TOLERANCE = 0.2; // ±20% de marge autour des besoins de la plante
+
+        public Terrain() { }
+
+        public bool EstAdapté(Plante plante)
         {
-            Plantes.Add(plante);
-            return true;
+            bool typeOK = TypeCorrespond(plante.TerrainPref);
+
+            bool humiditeOK = this.Humidite >= (1 - TOLERANCE) * plante.BesoinEau &&
+                              this.Humidite <= (1 + TOLERANCE) * plante.BesoinEau;
+
+            bool luminositeOK = this.Luminosite >= (1 - TOLERANCE) * plante.BesoinLum &&
+                                this.Luminosite <= (1 + TOLERANCE) * plante.BesoinLum;
+
+            bool temperatureOK = this.Temperature >= (1 - TOLERANCE) * plante.TemperaturePref &&
+                                 this.Temperature <= (1 + TOLERANCE) * plante.TemperaturePref;
+
+            return typeOK && humiditeOK && luminositeOK && temperatureOK;
         }
-        return false;
+
+        private bool TypeCorrespond(string terrainPref)
+        {
+            return (Type == TypeTerrain.SableuxAvecEau && terrainPref.Contains("source d'eau")) ||
+                   (Type == TypeTerrain.DraineHumide && terrainPref.Contains("bien drainé, humide")) ||
+                   (Type == TypeTerrain.DraineFertile && terrainPref.Contains("drainé, fertile")) ||
+                   (Type == TypeTerrain.BordDeMer && terrainPref.Contains("bord de mer")) ||
+                   (Type == TypeTerrain.Calcaire && terrainPref.Contains("calcaire")) ||
+                   (Type == TypeTerrain.SableuxDraine && terrainPref.Contains("sableux, bien drainé"));
+        }
+        public bool AjouterPlante(Plante plante)
+        {
+            if (EstAdapté(plante) && (SurfaceOccupée + plante.PlaceNecessaire <= SurfaceTotale))
+            {
+                Plantes.Add(plante);
+                return true;
+            }
+            return false;
+        }
+
+        public override string ToString()
+        {
+            return $"Terrain : {Type}\n" +
+                   $"Humidité : {Humidite * 100}%\n" +
+                   $"Luminosité : {Luminosite} h/jour\n" +
+                   $"Température moyenne : {Temperature}°C\n" +
+                   $"Surface utilisée : {SurfaceOccupée} / {SurfaceTotale} m²\n" +
+                   $"Plantes présentes : {Plantes.Count}";
+        }
     }
 
-    public override string ToString()
-    {
-        return $"Terrain : {Type}\n" +
-               $"Humidité : {Humidite * 100}%\n" +
-               $"Luminosité : {Luminosite} h/jour\n" +
-               $"Température moyenne : {Temperature}°C\n" +
-               $"Surface utilisée : {SurfaceOccupée} / {SurfaceTotale} m²\n" +
-               $"Plantes présentes : {Plantes.Count}";
-    }
 }

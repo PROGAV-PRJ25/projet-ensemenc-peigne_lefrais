@@ -1,5 +1,12 @@
+using Potager.Models;
 public class JeuController
 {
+
+    public enum ModeJeu
+    {
+        Classique,
+        Urgence
+    }
     private Terrain terrain;
     private List<Plante> plantes;
     private Meteo meteo;
@@ -9,8 +16,15 @@ public class JeuController
     {
         // Initialisation
         mode = ChoisirMode();
-        terrain = new TerrainSableuxAvecEau();  // ou via une fabrique de terrains
-        meteo = Meteo.GenererAleatoire();
+        terrain = new Terrain
+        {
+            Type = TypeTerrain.SableuxAvecEau,
+            Humidite = 0.8,
+            Luminosite = 10,
+            Temperature = 25,
+            SurfaceTotale = 200
+        };  
+        meteo = new Meteo(); //appelle le constructeur qui génère les conditions
         plantes = new List<Plante>
         {
             new Menthe(),
@@ -48,7 +62,7 @@ public class JeuController
             }
 
             Thread.Sleep(500); // simulation du temps qui passe
-            meteo = Meteo.GenererAleatoire();
+            meteo = new Meteo(); 
         }
 
         Console.WriteLine("Fin de partie !");
