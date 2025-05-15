@@ -67,10 +67,29 @@ public abstract class Plante
     //         Console.WriteLine($"{Nom} pousse bien !");
     //     }
     // }
- 
+
+    public void Croitre(double lumiere, double eau, double temperature)
+    {
+        int conditionsRemplies = 0;
+        if (Math.Abs(lumiere - BesoinLum) <= BesoinLum * 0.5) conditionsRemplies++;
+        if (Math.Abs(eau - BesoinEau) <= BesoinEau * 0.5) conditionsRemplies++;
+        if (Math.Abs(temperature - TemperaturePref) <= TemperaturePref * 0.5) conditionsRemplies++;
+
+        if (conditionsRemplies < 2)
+        {
+            EstVivante = false;
+            Console.WriteLine($"{Nom} est morte !");
+        }
+        else
+        {
+            CroissanceActuelle += conditionsRemplies;
+            Console.WriteLine($"{Nom} pousse bien ! Croissance actuelle : {CroissanceActuelle}");
+        }
+    }
+
 }
 
-public override void Croître(double lumiere, double eau, double temperature)
+public void Croitre(double lumiere, double eau, double temperature)
 {
     int conditionsRemplies = 0;
     if (Math.Abs(lumiere - BesoinLum) <= BesoinLum * 0.5) conditionsRemplies++;
