@@ -14,6 +14,8 @@ public abstract class Plante
     public string Maladie { get; set; }
     public double EspDeVie { get; set; }
     public double FruitsRecoltes { get; set; } 
+    public double CroissanceActuelle { get; set; } 
+    ublic bool EstVivante { get; set; } = true;
 
     public Plante (string nom, string nature, string saisonSemi, string terrainPref, TypeTerrain terrainCompatible, double espacement, double placeNecessaire, string vitesseCroissance, double besoinEau, double besoinLum, double temperaturePref, string maladie, double espDeVie, double fruitsRecoltes)
     {
@@ -66,6 +68,25 @@ public abstract class Plante
     //     }
     // }
  
+}
+
+public override void Croître(double lumiere, double eau, double temperature)
+{
+    int conditionsRemplies = 0;
+    if (Math.Abs(lumiere - BesoinLum) <= BesoinLum * 0.5) conditionsRemplies++;
+    if (Math.Abs(eau - BesoinEau) <= BesoinEau * 0.5) conditionsRemplies++;
+    if (Math.Abs(temperature - TemperaturePref) <= TemperaturePref * 0.5) conditionsRemplies++;
+
+    if (conditionsRemplies < 2)
+    {
+        EstVivante = false;
+        Console.WriteLine($"{Nom} est morte !");
+    }
+    else
+    {
+        CroissanceActuelle += conditionsRemplies;
+        Console.WriteLine($"{Nom} pousse bien ! Croissance actuelle : {CroissanceActuelle}");
+    }
 }
 
  // Classes dérivées pour chaque type de plante avec comportements spécifiques
