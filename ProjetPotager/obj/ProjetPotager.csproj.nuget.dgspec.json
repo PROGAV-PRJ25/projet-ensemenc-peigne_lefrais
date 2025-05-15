@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jeann\\Documents\\informatique\\projet-ensemenc-peigne_lefrais\\ProjetPotager\\ProjetPotager.csproj": {}
+    "/Users/louisonpeigne/Desktop/ENSC/S6/info /projet potager/projet-ensemenc-peigne_lefrais/ProjetPotager/ProjetPotager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jeann\\Documents\\informatique\\projet-ensemenc-peigne_lefrais\\ProjetPotager\\ProjetPotager.csproj": {
+    "/Users/louisonpeigne/Desktop/ENSC/S6/info /projet potager/projet-ensemenc-peigne_lefrais/ProjetPotager/ProjetPotager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jeann\\Documents\\informatique\\projet-ensemenc-peigne_lefrais\\ProjetPotager\\ProjetPotager.csproj",
+        "projectUniqueName": "/Users/louisonpeigne/Desktop/ENSC/S6/info /projet potager/projet-ensemenc-peigne_lefrais/ProjetPotager/ProjetPotager.csproj",
         "projectName": "ProjetPotager",
-        "projectPath": "C:\\Users\\jeann\\Documents\\informatique\\projet-ensemenc-peigne_lefrais\\ProjetPotager\\ProjetPotager.csproj",
-        "packagesPath": "C:\\Users\\jeann\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jeann\\Documents\\informatique\\projet-ensemenc-peigne_lefrais\\ProjetPotager\\obj\\",
+        "projectPath": "/Users/louisonpeigne/Desktop/ENSC/S6/info /projet potager/projet-ensemenc-peigne_lefrais/ProjetPotager/ProjetPotager.csproj",
+        "packagesPath": "/Users/louisonpeigne/.nuget/packages/",
+        "outputPath": "/Users/louisonpeigne/Desktop/ENSC/S6/info /projet potager/projet-ensemenc-peigne_lefrais/ProjetPotager/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jeann\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/louisonpeigne/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -58,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
