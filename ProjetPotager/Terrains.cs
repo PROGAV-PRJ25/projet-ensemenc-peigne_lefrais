@@ -1,16 +1,16 @@
 public enum TypeTerrain
 {
     SableuxAvecEau,
-    DrainéHumide,
-    DrainéFertile,
+    DraineHumide,
+    DraineFertile,
     BordDeMer,
     Calcaire,
-    SableuxDrainé
+    SableuxDraine
 }
 
 public class Terrain
 {
-    public string Type { get; set; }
+    public TypeTerrain Type { get; set; }  
     public double Humidite { get; set; }       // entre 0 et 1
     public double Luminosite { get; set; }     // en heures/jour
     public double Temperature { get; set; }    // en °C
@@ -26,7 +26,7 @@ public class Terrain
 
     public bool EstAdapté(Plante plante)
     {
-        bool typeOK = plante.TerrainPref == this.Type;
+        bool typeOK = TypeCorrespond(plante.TerrainPref);
 
         bool humiditeOK = this.Humidite >= (1 - TOLERANCE) * plante.BesoinEau &&
                           this.Humidite <= (1 + TOLERANCE) * plante.BesoinEau;
@@ -43,11 +43,11 @@ public class Terrain
     private bool TypeCorrespond(string terrainPref)
     {
         return (Type == TypeTerrain.SableuxAvecEau && terrainPref.Contains("source d'eau")) ||
-               (Type == TypeTerrain.DrainéHumide && terrainPref.Contains("bien drainé, humide")) ||
-               (Type == TypeTerrain.DrainéFertile && terrainPref.Contains("drainé, fertile")) ||
+               (Type == TypeTerrain.DraineHumide && terrainPref.Contains("bien drainé, humide")) ||
+               (Type == TypeTerrain.DraineFertile && terrainPref.Contains("drainé, fertile")) ||
                (Type == TypeTerrain.BordDeMer && terrainPref.Contains("bord de mer")) ||
                (Type == TypeTerrain.Calcaire && terrainPref.Contains("calcaire")) ||
-               (Type == TypeTerrain.SableuxDrainé && terrainPref.Contains("sableux, bien drainé"));
+               (Type == TypeTerrain.SableuxDraine && terrainPref.Contains("sableux, bien drainé"));
     }
     public bool AjouterPlante(Plante plante)
     {
