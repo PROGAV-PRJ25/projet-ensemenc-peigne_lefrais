@@ -16,6 +16,7 @@ public class Affichage
     const int homeWidth = 6;     // "🏠Home"
     const int cabanonWidth = 9;  // "🛠️Cabanon"
     const int grangeWidth = 9;   // "🏚️Grange"
+    static Meteo meteo = new Meteo();
 
     static void Main(string[] args)
     {
@@ -143,7 +144,12 @@ public class Affichage
         // Affichage joueur
         Console.SetCursorPosition(joueurX, joueurY);
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("🧑‍🌾");
+        Console.Write("👨");
+
+        // Affichage météo
+        Console.SetCursorPosition(0, TERRAIN_ROWS * (GRID_SIZE + 3));
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine(meteo.ToString());
 
         // Instructions
         Console.SetCursorPosition(0, TERRAIN_ROWS * (GRID_SIZE + 3) + 2);
@@ -180,7 +186,14 @@ public class Affichage
             {
                 Console.Clear();
                 Console.WriteLine("Tu es rentré à la maison 🏠. Bonne nuit !");
-                Environment.Exit(0);
+                Console.Clear();
+                Console.WriteLine("Tu es rentré à la maison 🏠. Bonne nuit !");
+                Console.WriteLine("Un nouveau jour commence...");
+                meteo.GenererConditions();
+                Console.WriteLine("\nNouvelle météo :");
+                Console.WriteLine(meteo.ToString());
+                Console.WriteLine("\nAppuie sur une touche pour reprendre.");
+                Console.ReadKey(true);
             }
             else if (joueurX == cabanonX)
             {

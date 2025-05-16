@@ -33,7 +33,13 @@ public class Meteo
     }
 
     public override string ToString()
-    {
-        return $"Météo du jour : {Ensoleillement}h de soleil, {Pluie}mm de pluie, {Temperature}°C.";
-    }
+{
+    string iconeSoleil = Ensoleillement >= 8 ? "☀️" : (Ensoleillement >= 4 ? "⛅" : "🌥️");
+    string iconePluie = Pluie >= 10 ? "🌧️" : (Pluie >= 5 ? "🌦️" : "🌤️");
+    string iconeTemperature = Temperature >= 30 ? "🔥"
+                          : (Temperature >= 20 ? "😊"
+                          : (Temperature >= 10 ? "🧥" : "❄️"));
+
+    return $"Météo du jour : {iconeSoleil} {Ensoleillement}h de soleil, {iconePluie} {Pluie}mm de pluie, {iconeTemperature} {Temperature}°C.";
+}
 }
