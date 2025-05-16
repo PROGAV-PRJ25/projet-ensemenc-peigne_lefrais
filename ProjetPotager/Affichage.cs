@@ -22,6 +22,9 @@ public class Affichage
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.CursorVisible = false;
+
+        AfficherEcranAccueil();
+
         Console.Clear();
 
         bool playing = true;
@@ -83,6 +86,66 @@ public class Affichage
 
             Console.Clear();
         }
+    }
+
+    static void AfficherEcranAccueil()
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.White;
+
+        Console.WriteLine(@" 
+        ______  _                                                                   _                    _       _                                _ 
+        | ___ \(_)                                                                 | |                  (_)     (_)                              | |
+        | |_/ / _   ___  _ __  __   __  ___  _ __   _   _   ___      ___  _ __     | |      ___   _   _  _  ___  _   __ _  _ __   _ __    ___    | |
+        | ___ \| | / _ \| '_ \ \ \ / / / _ \| '_ \ | | | | / _ \    / _ \| '_ \    | |     / _ \ | | | || |/ __|| | / _` || '_ \ | '_ \  / _ \   | |
+        | |_/ /| ||  __/| | | | \ V / |  __/| | | || |_| ||  __/   |  __/| | | |   | |____| (_) || |_| || |\__ \| || (_| || | | || | | ||  __/   |_|
+        \____/ |_| \___||_| |_|  \_/   \___||_| |_| \__,_| \___|    \___||_| |_|   \_____/ \___/  \__,_||_||___/|_| \__,_||_| |_||_| |_| \___|   (_)
+                                                                                                                                          
+
+                                                                                
+                                                                                                                    
+                                                                                    .                             
+                                                                                ......      ....   ...             
+                                                            ... .....         ...==..==:....==-=:+:.:=-  .          
+                                                        ..=. #%**#%..    .%**#=*===-=---==-=--+--== -++.         
+                                    %%%%=....               ==++###***#%+.=#++=+#+==+--==-----::-===--::.          
+                                        ..%%%++..            =#+#*##%####%%#*#+#=#+++-----=------=---:::-.          
+                                            ....++..         .*#%##**###%####%#*#%%#-::::::::-----------.           
+                                            ....++..      ..====-----------------------------------=..           
+                                                    .=++..      .===------------------------------:-...             
+                                                    .++:.     .====-------------------------:--.   .             
+                                                        ...++.   ...===----------------------:-..     .             
+                                                            :++..  .:===-----------------:--...:#%%%%#:..          
+                                                            ..++++*++=+===========------.  .%%%%%%%%%%%#..        
+                                                                .....:%#....:=**#*******+++*#%%%:.--.:%@%*#        
+                                                                        -..       ..#:.    .%%@-%=#***+++++++++     
+                                                                        #..      .#-       %%%%..-+::*-..@%*%       
+                                                                        #      .++..       *%%@.*--++--*.@%%*       
+                                                                        #.#...=*.          .#%%@=:.....=@%%%.       
+                                                                        + ..-#.              *%%%%@@%@%%%%*.        
+                                        ......::::-:-:::::::::::::::::+::=#::::::::::::--:::::-*%%%%%%*-:::.....   
+                                        ....:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::....  
+                                                                                                                    
+                                                                                                                    
+                                                                                    
+
+        ");
+        Console.WriteLine("___________________________________________________________________________________________________________________________________________________________\n");
+
+        Console.WriteLine("But du jeu : Planter des plantes comestibles dans des terrains adaptés, tout en gérant l'humidité, la température, la lumière et les saisons, mais aussi les nuisibles etc");
+
+        Console.WriteLine("Commandes :");
+        Console.WriteLine("- Flèches directionnelles : se déplacer");
+        Console.WriteLine("- Entrée : interagir avec un bâtiment");
+        Console.WriteLine("- ESC : quitter le jeu\n");
+
+        Console.WriteLine("🏠 Home     : dormir pour passer à un nouveau jour (météo changeante)");
+        Console.WriteLine("🛠️  Cabanon  : planter ou arroser des plantes");
+        Console.WriteLine("🏚️  Grange   : consulter les plantes disponibles et plantées\n");
+
+        Console.WriteLine("Appuie sur une touche pour commencer le jeu...");
+        Console.ReadKey(true);
+        Console.Clear();
     }
 
     static int SautBatiment(int x)
