@@ -17,11 +17,8 @@ public abstract class Plante
     public double EspDeVie { get; set; }
     public double FruitsRecoltes { get; set; }
     public double CroissanceActuelle { get; set; }
-    public double FruitsRecoltes { get; set; }
-    public double CroissanceActuelle { get; set; }
     public bool EstVivante { get; set; } = true;
 
-    public Plante(string nom, string nature, string saisonSemi, string terrainPref, TypeTerrain terrainCompatible, double espacement, double placeNecessaire, string vitesseCroissance, double besoinEau, double besoinLum, double temperaturePref, string maladie, double espDeVie, double fruitsRecoltes)
     public Plante(string nom, string nature, string saisonSemi, string terrainPref, TypeTerrain terrainCompatible, double espacement, double placeNecessaire, string vitesseCroissance, double besoinEau, double besoinLum, double temperaturePref, string maladie, double espDeVie, double fruitsRecoltes)
     {
         Nom = nom;
@@ -91,7 +88,6 @@ public abstract class Plante
         else
         {
             CroissanceActuelle += conditionsRemplies;
-            VitesseCroissance = CroissanceActuelle;
             Console.WriteLine($"{Nom} pousse bien ! Croissance actuelle : {CroissanceActuelle}");
         }
     }
