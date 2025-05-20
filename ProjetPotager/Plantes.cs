@@ -91,6 +91,7 @@ public abstract class Plante
         else
         {
             CroissanceActuelle += conditionsRemplies;
+            VitesseCroissance = CroissanceActuelle;
             Console.WriteLine($"{Nom} pousse bien ! Croissance actuelle : {CroissanceActuelle}");
         }
     }
