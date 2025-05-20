@@ -13,11 +13,11 @@ public abstract class Plante
     public double TemperaturePref { get; set; }
     public string Maladie { get; set; }
     public double EspDeVie { get; set; }
-    public double FruitsRecoltes { get; set; } 
-    public double CroissanceActuelle { get; set; } 
+    public double FruitsRecoltes { get; set; }
+    public double CroissanceActuelle { get; set; }
     public bool EstVivante { get; set; } = true;
 
-    public Plante (string nom, string nature, string saisonSemi, string terrainPref, TypeTerrain terrainCompatible, double espacement, double placeNecessaire, string vitesseCroissance, double besoinEau, double besoinLum, double temperaturePref, string maladie, double espDeVie, double fruitsRecoltes)
+    public Plante(string nom, string nature, string saisonSemi, string terrainPref, TypeTerrain terrainCompatible, double espacement, double placeNecessaire, string vitesseCroissance, double besoinEau, double besoinLum, double temperaturePref, string maladie, double espDeVie, double fruitsRecoltes)
     {
         Nom = nom;
         Nature = nature;
@@ -36,11 +36,11 @@ public abstract class Plante
     }
 
     // public abstract void AfficherEtat(); // méthode abstraites à redéfinir dans les classes filles (plantes)
-    
+
     // Affichage simplifié pour console (symbole ou code couleur)
     public abstract string AffichageSymbole();
 
-     // Simule une étape de croissance selon conditions météo
+    // Simule une étape de croissance selon conditions météo
     public abstract void Croître(double lumiere, double eau, double temperature);
 
     // Vérifie si la plante est prête à être récoltée
@@ -54,7 +54,7 @@ public abstract class Plante
                             $"Besoins - Eau: {BesoinEau}, Lumière: {BesoinLum}, Température: {TemperaturePref}°C\n" +
                             $"Maladie: {Maladie}\nEspérance de vie: {EspDeVie} ans\nFruits/Récolte: {FruitsRecoltes}");
     }
-    
+
     // public virtual void Croissance(double lumiere, double eau, double temperature)
     // {
     //     // Exemple de logique simplifiée
@@ -84,6 +84,68 @@ public abstract class Plante
         {
             CroissanceActuelle += conditionsRemplies;
             Console.WriteLine($"{Nom} pousse bien ! Croissance actuelle : {CroissanceActuelle}");
+        }
+    }
+    
+    // Action de planter 
+    public virtual void Planter()
+    {
+        Console.WriteLine($"🌱 {Nom} a été plantée !");
+        CroissanceActuelle = 0;
+        EstVivante = true;
+    }
+
+    // Action d'arroser une plante
+    public virtual void Arroser()
+    {
+        if (!EstVivante)
+        {
+            Console.WriteLine($"💀 {Nom} est morte et ne peut pas être arrosée...");
+            return;
+        }
+
+        Console.WriteLine($"💧 {Nom} a été arrosée !");
+        CroissanceActuelle += 1;
+    }
+
+    // Action de traiter contre une maladie
+    public virtual void TraiterContreMaladie()
+    {
+        if (!EstVivante)
+        {
+            Console.WriteLine($"💀 {Nom} est morte et ne peut pas être traitée...");
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(Maladie))
+        {
+            Console.WriteLine($"🧪 {Nom} a été traitée contre {Maladie} !");
+            Maladie = ""; // guérie
+        }
+        else
+        {
+            Console.WriteLine($"✅ {Nom} n'est pas malade.");
+        }
+    }
+
+    // Action de récolter (si possible)
+    public virtual bool Recolter()
+    {
+        if (!EstVivante)
+        {
+            Console.WriteLine($"💀 {Nom} est morte. Pas de récolte possible.");
+            return false;
+        }
+
+        if (PeutEtreRecoltee())
+        {
+            Console.WriteLine($"🍒 {Nom} a été récoltée ! Quantité : {FruitsRecoltes}");
+            return true;
+        }
+        else
+        {
+            Console.WriteLine($"⏳ {Nom} n'est pas encore prête à être récoltée.");
+            return false;
         }
     }
  
