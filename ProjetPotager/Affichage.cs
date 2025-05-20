@@ -1,3 +1,4 @@
+using Potager.Models;
 class Affichage
 {
     const int GRID_SIZE = 5; // Taille d'une grille (5x5 cases)
@@ -7,8 +8,9 @@ class Affichage
     static int playerX = 0;
     static int playerY = 0;
 
-    static void Main(string[] args)
+    public static void LancerTestAffichage()
     {
+
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.CursorVisible = false;
         Console.Clear();
@@ -92,5 +94,22 @@ class Affichage
         Console.SetCursorPosition(offsetX + (GRID_SIZE * CELL_WIDTH / 2) - 4, offsetY + GRID_SIZE);
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write($"Terrain {terrainNumber}");
+    }
+
+    public static void AfficherTerrain(Terrain terrain)
+    {
+        Console.WriteLine("Terrain :");
+        Console.WriteLine($" - Type : {terrain.Type}");
+        Console.WriteLine($" - Humidité : {terrain.Humidite}");
+        Console.WriteLine($" - Luminosité : {terrain.Luminosite}");
+        Console.WriteLine($" - Température : {terrain.Temperature}");
+        Console.WriteLine($" - Surface : {terrain.SurfaceTotale}");
+
+        Console.WriteLine("\nPlantes présentes :");
+        foreach (var plante in terrain.Plantes)
+        {
+            Console.WriteLine($" - {plante.GetType().Name} (Croissance : {plante.VitesseCroissance:F2})");
+        }
+        Console.WriteLine();
     }
 }
