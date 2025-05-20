@@ -1,3 +1,5 @@
+using Potager.Models;
+
 public abstract class Plante
 {
     public string Nom { get; set; }
@@ -13,11 +15,11 @@ public abstract class Plante
     public double TemperaturePref { get; set; }
     public string Maladie { get; set; }
     public double EspDeVie { get; set; }
-    public double FruitsRecoltes { get; set; } 
-    public double CroissanceActuelle { get; set; } 
+    public double FruitsRecoltes { get; set; }
+    public double CroissanceActuelle { get; set; }
     public bool EstVivante { get; set; } = true;
 
-    public Plante (string nom, string nature, string saisonSemi, string terrainPref, TypeTerrain terrainCompatible, double espacement, double placeNecessaire, string vitesseCroissance, double besoinEau, double besoinLum, double temperaturePref, string maladie, double espDeVie, double fruitsRecoltes)
+    public Plante(string nom, string nature, string saisonSemi, string terrainPref, TypeTerrain terrainCompatible, double espacement, double placeNecessaire, string vitesseCroissance, double besoinEau, double besoinLum, double temperaturePref, string maladie, double espDeVie, double fruitsRecoltes)
     {
         Nom = nom;
         Nature = nature;
@@ -36,11 +38,11 @@ public abstract class Plante
     }
 
     // public abstract void AfficherEtat(); // méthode abstraites à redéfinir dans les classes filles (plantes)
-    
+
     // Affichage simplifié pour console (symbole ou code couleur)
     public abstract string AffichageSymbole();
 
-     // Simule une étape de croissance selon conditions météo
+    // Simule une étape de croissance selon conditions météo
     public abstract void Croître(double lumiere, double eau, double temperature);
 
     // Vérifie si la plante est prête à être récoltée
@@ -54,7 +56,7 @@ public abstract class Plante
                             $"Besoins - Eau: {BesoinEau}, Lumière: {BesoinLum}, Température: {TemperaturePref}°C\n" +
                             $"Maladie: {Maladie}\nEspérance de vie: {EspDeVie} ans\nFruits/Récolte: {FruitsRecoltes}");
     }
-    
+
     // public virtual void Croissance(double lumiere, double eau, double temperature)
     // {
     //     // Exemple de logique simplifiée
@@ -86,7 +88,7 @@ public abstract class Plante
             Console.WriteLine($"{Nom} pousse bien ! Croissance actuelle : {CroissanceActuelle}");
         }
     }
- 
+
 }
 
 
