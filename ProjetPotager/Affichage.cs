@@ -200,8 +200,7 @@ public class Affichage
             {
                 Console.Clear();
                 Console.WriteLine("Bienvenue dans le cabanon 🛠️ !");
-                Console.WriteLine("1. Planter une graine\n2. Arroser une plante\n3. Retour");
-                Console.ReadKey(true);
+                Actions.PlanterUneGraine(tousLesTerrains);
             }
             else if (joueurX == grangeX)
             {
@@ -233,3 +232,4 @@ public class Affichage
         Console.WriteLine();
     }
 }
+ 
