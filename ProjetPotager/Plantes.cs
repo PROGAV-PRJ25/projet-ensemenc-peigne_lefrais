@@ -231,10 +231,10 @@ public class Cerisier : Plante
     public override bool PeutEtreRecoltee() => true;
 }
 
-    
+
 public class Ananas : Plante
 {
-    public Ananas() : base("Ananas", "Vivace", "Juin", "Sableux, bien drainé", TypeTerrain.SableuxDraine, 
+    public Ananas() : base("Ananas", "Vivace", "Juin", "Sableux, bien drainé", TypeTerrain.SableuxDraine,
                    75, 100, "Lente (2 ans)", 900, 80, 26, "Fusariose", 5, 1)
     {
     }
@@ -242,5 +242,11 @@ public class Ananas : Plante
     public override string AffichageSymbole() => "ANA";
     public override void Croître(double lumiere, double eau, double temperature) { }
     public override bool PeutEtreRecoltee() => true;
+
+    public void AppliquerEffet(Effet effet)
+    {
+        effet.AppliquerEffet(this);
+    }
+
 }
 
