@@ -80,7 +80,7 @@ public class JeuController
         }
 
         foreach (var plante in terrain.Plantes)
-            plante.Croître(meteo.Ensoleillement, meteo.Pluie, meteo.Temperature);
+            plante.Croitre(meteo.Ensoleillement, meteo.Pluie, meteo.Temperature);
     }
 
     private ModeJeu ChoisirMode()
