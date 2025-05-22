@@ -32,25 +32,11 @@ public class Affichage
 
     public Affichage()
     {
-        // Initialisation des terrains, plantes et météo
         meteo = new Meteo();
         mode = ChoisirMode();
 
-        // Création d'exemple de terrains (6 terrains, 3 colonnes x 2 lignes)
-        tousLesTerrains = new List<Terrain>();
-
-        for (int i = 0; i < TERRAIN_COLS * TERRAIN_ROWS; i++)
-        {
-            var terrain = new Terrain
-            {
-                Type = TypeTerrain.SableuxAvecEau,
-                Humidite = 0.8,
-                Luminosite = 10,
-                Temperature = 25,
-                SurfaceTotale = 200
-            };
-            tousLesTerrains.Add(terrain);
-        }
+        // Utiliser la méthode statique pour créer les terrains variés
+        tousLesTerrains = Terrain.CreerTousLesTerrains();
 
         actions = new Actions(tousLesTerrains);
 
@@ -245,7 +231,7 @@ public class Affichage
             {
                 Console.Clear();
                 Console.WriteLine("Bienvenue dans le cabanon 🛠️ !");
-                actions.PlanterUneGraine(tousLesTerrains);
+                actions.PlanterUneGraine();
             }
             else if (joueurX == grangeX)
             {
