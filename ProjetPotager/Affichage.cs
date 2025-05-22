@@ -278,7 +278,7 @@ public class Affichage
             }
             else if (key == ConsoleKey.D2)
             {
-                Console.WriteLine("Semer sélectionné (fonction non implémentée).");
+                actions.PlanterUneGraine(tousLesTerrains);
                 Thread.Sleep(1000);
             }
             else if (key == ConsoleKey.D3)

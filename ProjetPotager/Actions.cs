@@ -97,5 +97,7 @@ public class Actions
 
         terrain.Plantes.Add(plante);
         Console.WriteLine($"✅ {plante.GetType().Name} plantée avec succès !");
+        Console.WriteLine("\nAppuie sur une touche pour continuer...");
+        Console.ReadKey(true);
     }
 }
