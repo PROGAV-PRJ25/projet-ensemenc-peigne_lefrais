@@ -1,3 +1,4 @@
+using Potager.Models;
 public class Meteo
 {
     public double Ensoleillement { get; private set; } // en heures par jour

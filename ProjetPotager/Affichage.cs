@@ -1,4 +1,5 @@
 using Potager.Models;
+
 public class Affichage
 {
     const int GRID_SIZE = 5; // Taille d'une grille (5x5 cases)
@@ -17,78 +18,124 @@ public class Affichage
     const int homeWidth = 6;     // "🏠Home"
     const int cabanonWidth = 9;  // "🛠️Cabanon"
     const int grangeWidth = 9;   // "🏚️Grange"
-    static Meteo meteo = new Meteo();
 
-    public static void LancerTestAffichage()
+    private List<Terrain> tousLesTerrains;
+    private Actions actions;
+    private Meteo meteo;
+    private ModeJeu mode;
+
+    public enum ModeJeu
     {
-        Console.OutputEncoding = System.Text.Encoding.UTF8;
-        Console.CursorVisible = false;
-        Console.Clear();
+        Classique,
+        Urgence
+    }
 
-        bool playing = true;
+    public Affichage()
+    {
+        // Initialisation des terrains, plantes et météo
+        meteo = new Meteo();
+        mode = ChoisirMode();
 
-        // Initialiser joueur sur la ligne bâtiments, sur home par défaut
+        // Création d'exemple de terrains (6 terrains, 3 colonnes x 2 lignes)
+        tousLesTerrains = new List<Terrain>();
+
+        for (int i = 0; i < TERRAIN_COLS * TERRAIN_ROWS; i++)
+        {
+            var terrain = new Terrain
+            {
+                Type = TypeTerrain.SableuxAvecEau,
+                Humidite = 0.8,
+                Luminosite = 10,
+                Temperature = 25,
+                SurfaceTotale = 200
+            };
+            tousLesTerrains.Add(terrain);
+        }
+
+        actions = new Actions(tousLesTerrains);
+
+        // Position initiale du joueur : sur Home (ligne bâtiments)
         joueurY = batimentY;
         joueurX = homeX;
+    }
 
-        while (playing)
+    public void LancerPartie()
+    {
+        bool partieEnCours = true;
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+        Console.CursorVisible = false;
+
+        while (partieEnCours)
         {
             AfficherJardin();
 
-            var key = Console.ReadKey(true).Key;
-
-            int maxX = TERRAIN_COLS * (GRID_SIZE * CELL_WIDTH + 4) - 1;
-            int maxY = TERRAIN_ROWS * (GRID_SIZE + 3) + 1;
-
-            if (joueurY == batimentY)
+            if (Console.KeyAvailable)
             {
-                // Si le joueur n'est pas sur une des 3 positions, le placer sur la plus proche
-                if (joueurX != homeX && joueurX != cabanonX && joueurX != grangeX)
+                var key = Console.ReadKey(true).Key;
+                int maxX = TERRAIN_COLS * (GRID_SIZE * CELL_WIDTH + 4) - 1;
+                int maxY = TERRAIN_ROWS * (GRID_SIZE + 3) + 1;
+
+                if (joueurY == batimentY)
                 {
-                    joueurX = SautBatiment(joueurX);
+                    // Si le joueur n'est pas sur une des 3 positions, le placer sur la plus proche
+                    if (joueurX != homeX && joueurX != cabanonX && joueurX != grangeX)
+                    {
+                        joueurX = SautBatiment(joueurX);
+                    }
+
+                    if (key == ConsoleKey.LeftArrow)
+                    {
+                        if (joueurX == cabanonX) joueurX = homeX;
+                        else if (joueurX == grangeX) joueurX = cabanonX;
+                        // sinon ne bouge pas
+                    }
+                    else if (key == ConsoleKey.RightArrow)
+                    {
+                        if (joueurX == homeX) joueurX = cabanonX;
+                        else if (joueurX == cabanonX) joueurX = grangeX;
+                    }
+                    else if (key == ConsoleKey.UpArrow && joueurY > 0)
+                    {
+                        joueurY--;
+                    }
+                    else if (key == ConsoleKey.DownArrow && joueurY < maxY)
+                    {
+                        joueurY++;
+                    }
+                }
+                else
+                {
+                    // déplacement case par case
+                    if (key == ConsoleKey.UpArrow && joueurY > 0) joueurY--;
+                    else if (key == ConsoleKey.DownArrow && joueurY < maxY) joueurY++;
+                    else if (key == ConsoleKey.LeftArrow && joueurX > 0) joueurX--;
+                    else if (key == ConsoleKey.RightArrow && joueurX < maxX) joueurX++;
                 }
 
-                // déplacement mot par mot sur la ligne bâtiments
-                if (key == ConsoleKey.LeftArrow)
+                if (key == ConsoleKey.Enter)
                 {
-                    if (joueurX == cabanonX) joueurX = homeX;
-                    else if (joueurX == grangeX) joueurX = cabanonX;
-                    // si on est déjà à homeX, ne pas bouger
+                    HandleInteraction();
                 }
-                else if (key == ConsoleKey.RightArrow)
+                else if (key == ConsoleKey.Escape)
                 {
-                    if (joueurX == homeX) joueurX = cabanonX;
-                    else if (joueurX == cabanonX) joueurX = grangeX;
-                    // si on est déjà à grangeX, ne pas bouger
+                    partieEnCours = false;
                 }
-                else if (key == ConsoleKey.UpArrow && joueurY > 0)
+                else if (key == ConsoleKey.Spacebar)
                 {
-                    joueurY--;
-                }
-                else if (key == ConsoleKey.DownArrow && joueurY < maxY)
-                {
-                    joueurY++;
+                    GererTour();
                 }
             }
-            else
-            {
-                // déplacement case par case en dehors ligne bâtiments
-                if (key == ConsoleKey.UpArrow && joueurY > 0) joueurY--;
-                else if (key == ConsoleKey.DownArrow && joueurY < maxY) joueurY++;
-                else if (key == ConsoleKey.LeftArrow && joueurX > 0) joueurX--;
-                else if (key == ConsoleKey.RightArrow && joueurX < maxX) joueurX++;
-            }
 
-            if (key == ConsoleKey.Enter) HandleInteraction();
-            else if (key == ConsoleKey.Escape) playing = false;
-
+            Thread.Sleep(100);
+            meteo.GenererConditions();
             Console.Clear();
         }
+
+        Console.WriteLine("Fin de partie !");
     }
 
     static int SautBatiment(int x)
     {
-        // renvoie la coordonnée x parmi homeX, cabanonX, grangeX la plus proche de x
         int distHome = Math.Abs(x - homeX);
         int distCabanon = Math.Abs(x - cabanonX);
         int distGrange = Math.Abs(x - grangeX);
@@ -100,7 +147,7 @@ public class Affichage
         else return grangeX;
     }
 
-    static void AfficherJardin()
+    void AfficherJardin()
     {
         Console.ForegroundColor = ConsoleColor.White;
 
@@ -139,7 +186,7 @@ public class Affichage
             int startX = col * (GRID_SIZE * CELL_WIDTH + 4);
             int startY = 2 + row * (GRID_SIZE + 3);
 
-            AfficherTerrain(startX, startY, terrainIndex + 1);
+            AfficherTerrainGraphique(startX, startY, terrainIndex + 1);
         }
 
         // Affichage joueur
@@ -155,10 +202,10 @@ public class Affichage
         // Instructions
         Console.SetCursorPosition(0, TERRAIN_ROWS * (GRID_SIZE + 3) + 2);
         Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine("Déplace-toi avec les flèches. Entrée = action, ESC = quitter.");
+        Console.WriteLine("Déplace-toi avec les flèches. Entrée = action, Espace = tour, ESC = quitter.");
     }
 
-    static void AfficherTerrain(int offsetX, int offsetY, int terrainNumber)
+    static void AfficherTerrainGraphique(int offsetX, int offsetY, int terrainNumber)
     {
         for (int y = 0; y < GRID_SIZE; y++)
         {
@@ -179,14 +226,12 @@ public class Affichage
         Console.Write($"Terrain {terrainNumber}");
     }
 
-    static void HandleInteraction()
+    void HandleInteraction()
     {
         if (joueurY == batimentY)
         {
             if (joueurX == homeX)
             {
-                Console.Clear();
-                Console.WriteLine("Tu es rentré à la maison 🏠. Bonne nuit !");
                 Console.Clear();
                 Console.WriteLine("Tu es rentré à la maison 🏠. Bonne nuit !");
                 Console.WriteLine("Un nouveau jour commence...");
@@ -200,7 +245,7 @@ public class Affichage
             {
                 Console.Clear();
                 Console.WriteLine("Bienvenue dans le cabanon 🛠️ !");
-                Actions.PlanterUneGraine(tousLesTerrains);
+                actions.PlanterUneGraine(tousLesTerrains);
             }
             else if (joueurX == grangeX)
             {
@@ -208,28 +253,85 @@ public class Affichage
                 Console.WriteLine("Bienvenue dans la grange 🏚️ !");
                 Console.WriteLine("Inventaire des plantes disponibles :");
                 Console.WriteLine("- Menthe\n- Citron vert\n- Ananas\n- Cerisier\n- Cocotier\n- Canne à sucre");
-                Console.WriteLine("\nPlantes plantées : (à compléter)");
-                Console.ReadKey(true);
+                Console.WriteLine("Plantes plantées :");
+                foreach (var terrain in tousLesTerrains)
+                {
+                    if (terrain.Plantes.Any())
+                    {
+                        Console.WriteLine($"\n- Terrain {tousLesTerrains.IndexOf(terrain) + 1} :");
+                        foreach (var plante in terrain.Plantes)
+                        {
+                            Console.WriteLine($"  • {plante.GetType().Name} (Croissance : {plante.VitesseCroissance:F2})");
+                        }
+                    }
+                }
                 Console.WriteLine("\nAppuie sur une touche pour revenir.");
                 Console.ReadKey(true);
             }
         }
     }
-    public static void AfficherTerrain(Terrain terrain)
-    {
-        Console.WriteLine("Terrain :");
-        Console.WriteLine($" - Type : {terrain.Type}");
-        Console.WriteLine($" - Humidité : {terrain.Humidite}");
-        Console.WriteLine($" - Luminosité : {terrain.Luminosite}");
-        Console.WriteLine($" - Température : {terrain.Temperature}");
-        Console.WriteLine($" - Surface : {terrain.SurfaceTotale}");
 
-        Console.WriteLine("\nPlantes présentes :");
-        foreach (var plante in terrain.Plantes)
+    private void GererTour()
+    {
+        if (mode == ModeJeu.Classique)
         {
-            Console.WriteLine($" - {plante.GetType().Name} (Croissance : {plante.VitesseCroissance:F2})");
+            // Exemple de menu simplifié (à étendre)
+            Console.Clear();
+            Console.WriteLine("Menu du tour :");
+            Console.WriteLine("1. Arroser");
+            Console.WriteLine("2. Semer");
+            Console.WriteLine("3. Récolter");
+            Console.WriteLine("4. Traiter");
+            Console.WriteLine("Autre : revenir");
+
+            var key = Console.ReadKey(true).Key;
+            if (key == ConsoleKey.D1)
+            {
+                Console.WriteLine("Arroser sélectionné (fonction non implémentée).");
+                Thread.Sleep(1000);
+            }
+            else if (key == ConsoleKey.D2)
+            {
+                Console.WriteLine("Semer sélectionné (fonction non implémentée).");
+                Thread.Sleep(1000);
+            }
+            else if (key == ConsoleKey.D3)
+            {
+                Console.WriteLine("Récolter sélectionné (fonction non implémentée).");
+                Thread.Sleep(1000);
+            }
+            else if (key == ConsoleKey.D4)
+            {
+                Console.WriteLine("Traiter sélectionné (fonction non implémentée).");
+                Thread.Sleep(1000);
+            }
         }
-        Console.WriteLine();
+        else if (mode == ModeJeu.Urgence)
+        {
+            Console.WriteLine("Gestion d'urgence (non implémentée).");
+            Thread.Sleep(1000);
+        }
+
+        // Faire croître les plantes selon la météo
+        foreach (var plante in tousLesTerrains.SelectMany(t => t.Plantes))
+        {
+            plante.Croitre(meteo.Ensoleillement, meteo.Pluie, meteo.Temperature);
+        }
+    }
+
+    private ModeJeu ChoisirMode()
+    {
+        Console.Clear();
+        Console.WriteLine("Choisissez un mode de jeu :");
+        Console.WriteLine("1 - Mode Classique");
+        Console.WriteLine("2 - Mode Urgence");
+        ConsoleKey key;
+        do
+        {
+            key = Console.ReadKey(true).Key;
+        } while (key != ConsoleKey.D1 && key != ConsoleKey.D2);
+
+        if (key == ConsoleKey.D1) return ModeJeu.Classique;
+        else return ModeJeu.Urgence;
     }
 }
- 
