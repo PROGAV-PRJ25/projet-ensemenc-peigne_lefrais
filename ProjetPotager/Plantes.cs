@@ -14,8 +14,7 @@ public abstract class Plante
     public string Nom { get; set; }
     public string Nature { get; set; }
     public string SaisonSemi { get; set; }
-    public string TerrainPref { get; set; }
-    public TypeTerrain TerrainCompatible { get; set; }
+    public TerrainPref TerrainPref { get; set; }
     public double Espacement { get; set; }
     public double PlaceNecessaire { get; set; }
     public string VitesseCroissance { get; set; }
@@ -28,7 +27,7 @@ public abstract class Plante
     public double CroissanceActuelle { get; set; }
     public bool EstVivante { get; set; } = true;
 
-    public Plante(string nom, string nature, string saisonSemi, string terrainPref, TypeTerrain terrainCompatible,
+    public Plante(string nom, string nature, string saisonSemi, TerrainPref terrainPref,
                   double espacement, double placeNecessaire, string vitesseCroissance,
                   double besoinEau, double besoinLum, double temperaturePref,
                   string maladie, double espDeVie, double fruitsRecoltes)
@@ -37,7 +36,6 @@ public abstract class Plante
         Nature = nature;
         SaisonSemi = saisonSemi;
         TerrainPref = terrainPref;
-        TerrainCompatible = terrainCompatible;
         Espacement = espacement;
         PlaceNecessaire = placeNecessaire;
         VitesseCroissance = vitesseCroissance;
