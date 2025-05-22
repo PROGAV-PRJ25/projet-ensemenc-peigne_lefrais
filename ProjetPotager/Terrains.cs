@@ -28,7 +28,7 @@ namespace Potager.Models
 
         public bool EstAdapté(Plante plante)
         {
-            bool typeOK = TypeCorrespond((TerrainPref) Enum.Parse(typeof(TerrainPref), plante.TerrainPref));
+            bool typeOK = TypeCorrespond(plante.TerrainPref);
 
             bool humiditeOK = this.Humidite >= (1 - TOLERANCE) * plante.BesoinEau &&
                               this.Humidite <= (1 + TOLERANCE) * plante.BesoinEau;
