@@ -278,7 +278,7 @@ public class Affichage
             }
             else if (key == ConsoleKey.D2)
             {
-                actions.PlanterUneGraine(tousLesTerrains);
+                actions.PlanterUneGraine();
                 Thread.Sleep(1000);
             }
             else if (key == ConsoleKey.D3)
