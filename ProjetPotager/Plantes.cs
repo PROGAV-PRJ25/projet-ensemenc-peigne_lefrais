@@ -140,7 +140,38 @@ public abstract class Plante
                           $"Besoins - Eau: {BesoinEau}, Lumière: {BesoinLum}, Température: {TemperaturePref}°C\n" +
                           $"Maladie: {Maladie}\nEspérance de vie: {EspDeVie} ans\nFruits/Récolte: {FruitsRecoltes}");
     }
+
+    public virtual void BeneficierArrosage()
+    {
+        if (!EstVivante)
+        {
+            Console.WriteLine($"💀 {Nom} est morte et ne peut pas bénéficier de l'arrosage.");
+            return;
+        }
+
+        // Amélioration de la croissance grâce à l'arrosage
+        CroissanceActuelle += 2;  // par exemple on booste la croissance de 2 unités
+
+        // Réduction du risque ou guérison partielle de maladie (si maladie non vide)
+        if (!string.IsNullOrEmpty(Maladie))
+        {
+            // Ici on peut imaginer que l'arrosage soigne un peu la plante
+            Console.WriteLine($"💧 {Nom} bénéficie d'un bon arrosage, la maladie {Maladie} est moins agressive.");
+            // Par simplicité, on peut choisir de diminuer le risque ou réduire la maladie
+            // Exemple : on supprime la maladie 50% du temps (à ajuster selon la logique souhaitée)
+            if (new Random().NextDouble() > 0.5)
+            {
+                Maladie = "";
+                Console.WriteLine($"✅ {Nom} est guérie grâce à l'arrosage !");
+            }
+        }
+        else
+        {
+            Console.WriteLine($"💧 {Nom} bénéficie pleinement de l'arrosage.");
+        }
+    }
+
 }
 
 
- // Classes dérivées pour chaque type de plante avec comportements spécifiques dans les autres fichiers 
+// Classes dérivées pour chaque type de plante avec comportements spécifiques dans les autres fichiers 

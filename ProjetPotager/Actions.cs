@@ -100,4 +100,39 @@ public class Actions
         Console.WriteLine("\nAppuie sur une touche pour continuer...");
         Console.ReadKey(true);
     }
+
+    public void Arroser(List<Terrain> terrains)
+    {
+        Console.Clear();
+        Console.WriteLine("Choisis le terrain à arroser :");
+
+        for (int i = 0; i < terrains.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. Terrain {i + 1} (Humidité actuelle : {terrains[i].Humidite:F2})");
+        }
+
+        Console.Write("\nNuméro du terrain : ");
+        if (int.TryParse(Console.ReadLine(), out int choix) && choix >= 1 && choix <= terrains.Count)
+        {
+            var terrain = terrains[choix - 1];
+            double ancienneHumidite = terrain.Humidite;
+            terrain.Humidite = Math.Min(1.0, terrain.Humidite + 0.2); // augmente de 0.2 max
+
+            Console.WriteLine($"\nTerrain {choix} arrosé. Humidité : {ancienneHumidite:F2} → {terrain.Humidite:F2}");
+
+            // Optionnel : effet direct sur les plantes
+            foreach (var plante in terrain.Plantes)
+            {
+                plante.BeneficierArrosage();
+            }
+        }
+        else
+        {
+            Console.WriteLine("Choix invalide.");
+        }
+
+        Console.WriteLine("\nAppuie sur une touche pour continuer.");
+        Console.ReadKey(true);
+    }
+
 }
