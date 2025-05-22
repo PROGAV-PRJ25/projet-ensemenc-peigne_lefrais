@@ -287,7 +287,7 @@ public class Affichage
             var key = Console.ReadKey(true).Key;
             if (key == ConsoleKey.D1)
             {
-                Console.WriteLine("Arroser sélectionné (fonction non implémentée).");
+                actions.Arroser(tousLesTerrains);
                 Thread.Sleep(1000);
             }
             else if (key == ConsoleKey.D2)
