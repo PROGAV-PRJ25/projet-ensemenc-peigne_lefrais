@@ -7,7 +7,7 @@ public class Actions
     {
         this.terrains = terrains;
     }
-    
+
     public void PlanterUneGraine(List<Terrain> terrains)
     {
         Console.Clear();
@@ -76,5 +76,7 @@ public class Actions
 
         terrain.Plantes.Add(plante);
         Console.WriteLine($"✅ {plante.GetType().Name} plantée avec succès !");
+        Console.WriteLine("\nAppuie sur une touche pour continuer...");
+        Console.ReadKey(true);
     }
 }
