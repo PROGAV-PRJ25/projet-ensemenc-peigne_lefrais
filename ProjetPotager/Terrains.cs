@@ -79,58 +79,60 @@ namespace Potager.Models
                    $"Plantes présentes : {Plantes.Count}";
         }
 
-            // instances de 6 terrains pour notre potager 
-    // List<Terrain> tousLesTerrains = new List<Terrain>
-    // {
-    //     new Terrain
-    //     {
-    //         Type = TypeTerrain.SableuxAvecEau,
-    //         Humidite = 0.8,
-    //         Luminosite = 8,
-    //         Temperature = 25,
-    //         SurfaceTotale = 20
-    //     },
-    //     new Terrain
-    //     {
-    //         Type = TypeTerrain.DraineHumide,
-    //         Humidite = 0.6,
-    //         Luminosite = 7,
-    //         Temperature = 22,
-    //         SurfaceTotale = 18
-    //     },
-    //     new Terrain
-    //     {
-    //         Type = TypeTerrain.DraineFertile,
-    //         Humidite = 0.5,
-    //         Luminosite = 9,
-    //         Temperature = 23,
-    //         SurfaceTotale = 25
-    //     },
-    //     new Terrain
-    //     {
-    //         Type = TypeTerrain.BordDeMer,
-    //         Humidite = 0.7,
-    //         Luminosite = 10,
-    //         Temperature = 27,
-    //         SurfaceTotale = 15
-    //     },
-    //     new Terrain
-    //     {
-    //         Type = TypeTerrain.Calcaire,
-    //         Humidite = 0.4,
-    //         Luminosite = 6,
-    //         Temperature = 20,
-    //         SurfaceTotale = 12
-    //     },
-    //     new Terrain
-    //     {
-    //         Type = TypeTerrain.SableuxDraine,
-    //         Humidite = 0.3,
-    //         Luminosite = 9,
-    //         Temperature = 26,
-    //         SurfaceTotale = 16
-    //     }
-    // };
+    public static List<Terrain> CreerTousLesTerrains()
+    {
+        return new List<Terrain>
+        {
+            new Terrain
+            {
+                Type = TypeTerrain.SableuxAvecEau,
+                Humidite = 0.8,
+                Luminosite = 8,
+                Temperature = 25,
+                SurfaceTotale = 20
+            },
+            new Terrain
+            {
+                Type = TypeTerrain.DraineHumide,
+                Humidite = 0.6,
+                Luminosite = 7,
+                Temperature = 22,
+                SurfaceTotale = 18
+            },
+            new Terrain
+            {
+                Type = TypeTerrain.DraineFertile,
+                Humidite = 0.5,
+                Luminosite = 9,
+                Temperature = 23,
+                SurfaceTotale = 25
+            },
+            new Terrain
+            {
+                Type = TypeTerrain.BordDeMer,
+                Humidite = 0.7,
+                Luminosite = 10,
+                Temperature = 27,
+                SurfaceTotale = 15
+            },
+            new Terrain
+            {
+                Type = TypeTerrain.Calcaire,
+                Humidite = 0.4,
+                Luminosite = 6,
+                Temperature = 20,
+                SurfaceTotale = 12
+            },
+            new Terrain
+            {
+                Type = TypeTerrain.SableuxDraine,
+                Humidite = 0.3,
+                Luminosite = 9,
+                Temperature = 26,
+                SurfaceTotale = 16
+            }
+        };
+    }
     }
 
 }
