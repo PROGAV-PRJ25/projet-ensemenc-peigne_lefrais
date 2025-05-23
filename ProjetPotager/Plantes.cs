@@ -76,25 +76,6 @@ public abstract class Plante
     }
 
 
-    public virtual void TraiterContreMaladie()
-    {
-        if (!EstVivante)
-        {
-            Console.WriteLine($"💀 {Nom} est morte et ne peut pas être traitée...");
-            return;
-        }
-
-        if (!string.IsNullOrEmpty(Maladie))
-        {
-            Console.WriteLine($"🧪 {Nom} a été traitée contre {Maladie} !");
-            Maladie = ""; // guérie
-        }
-        else
-        {
-            Console.WriteLine($"✅ {Nom} n'est pas malade.");
-        }
-    }
-
 
     public virtual void AfficherInfos()
     {

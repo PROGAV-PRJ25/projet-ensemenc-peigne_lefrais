@@ -323,7 +323,7 @@ public class Affichage
             Console.WriteLine("1. Arroser");
             Console.WriteLine("2. Semer");
             Console.WriteLine("3. Récolter");
-            Console.WriteLine("4. Traiter");
+            Console.WriteLine("4. Soigner ma plante");
             Console.WriteLine("Autre : revenir");
 
             var key = Console.ReadKey(true).Key;
@@ -345,8 +345,8 @@ public class Affichage
 
             else if (key == ConsoleKey.D4)
             {
-                Console.WriteLine("Traiter sélectionné (fonction non implémentée).");
-                Thread.Sleep(1000);
+            urgence.SoignerPlante();
+            Thread.Sleep(1000);
             }
 
         // Lancer une urgence avec une probabilité de 1 chance sur 3
