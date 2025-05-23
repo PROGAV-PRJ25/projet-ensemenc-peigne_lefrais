@@ -47,6 +47,7 @@ public class Affichage
 
     public void LancerPartie()
     {
+        AffichageAccueil.Afficher();
         bool partieEnCours = true;
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.CursorVisible = false;
