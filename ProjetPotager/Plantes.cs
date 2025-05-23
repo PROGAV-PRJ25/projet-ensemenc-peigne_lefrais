@@ -1,20 +1,20 @@
 using Potager.Models;
 
-    public enum TerrainPref
-    {
-        SableuxAvecEau,
-        DraineHumide,
-        DraineFertile,
-        BordDeMer,
-        Calcaire,
-        SableuxDraine
-    }
+    // public enum TerrainPref
+    // {
+    //     SableuxAvecEau,
+    //     DraineHumide,
+    //     DraineFertile,
+    //     BordDeMer,
+    //     Calcaire,
+    //     SableuxDraine
+    // }
 public abstract class Plante
 {
     public string Nom { get; set; }
     public string Nature { get; set; }
     public string SaisonSemi { get; set; }
-    public TerrainPref TerrainPref { get; set; }
+    public TypeTerrain TerrainPref { get; set; }
     public double Espacement { get; set; }
     public double PlaceNecessaire { get; set; }
     public string VitesseCroissance { get; set; }
@@ -29,7 +29,7 @@ public abstract class Plante
     public bool EstMature { get; set; } = false;
     public bool EstVivante { get; set; } = true;
 
-    public Plante(string nom, string nature, string saisonSemi, TerrainPref terrainPref,
+    public Plante(string nom, string nature, string saisonSemi, TypeTerrain terrainPref,
                   double espacement, double placeNecessaire, string vitesseCroissance,
                   double besoinEau, double besoinLum, double temperaturePref,
                   string maladie, double espDeVie, double fruitsRecoltes)

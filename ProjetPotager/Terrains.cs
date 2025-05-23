@@ -28,9 +28,9 @@ namespace Potager.Models
 
         public bool EstAdapté(Plante plante)
         {
-            double besoinEauNorm = plante.BesoinEau / 100.0;  // conversion %
+            double besoinEauNorm = plante.BesoinEau;
 
-            bool typeOK = TypeCorrespond(plante.TerrainPref);
+            bool typeOK = this.Type == plante.TerrainPref;
 
             double humiditeMin = besoinEauNorm * (1 - TOLERANCE);
             double humiditeMax = besoinEauNorm * (1 + TOLERANCE);
@@ -47,10 +47,8 @@ namespace Potager.Models
             return typeOK && humiditeOK && lumiereOK && temperatureOK;
         }
 
-        private bool TypeCorrespond(TerrainPref terrainPref)
-        {
-            return Type == (TypeTerrain)Enum.Parse(typeof(TypeTerrain), terrainPref.ToString());
-        }
+
+
         public string AjouterPlante(Plante plante)
         {
             if (SurfaceOccupee + plante.PlaceNecessaire > SurfaceTotale)
