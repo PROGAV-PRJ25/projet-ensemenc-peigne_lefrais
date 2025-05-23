@@ -66,10 +66,10 @@ public static class AffichageAccueil
                         
                         
                         ");
-        Console.WriteLine("🌱 Bienvenue dans le jeu du potager !");
-        Console.WriteLine("Utilisez les flèches pour vous déplacer.");
-        Console.WriteLine("Appuyez sur Entrée pour interagir avec une maison.");
-        Console.WriteLine("Appuyez sur Échap pour quitter le jeu.");
+        Console.WriteLine("🌱 Bienvenue dans le jeu du potager !\n");
+        Console.WriteLine("Utilisez les flèches du clavier pour vous déplacer.\n");
+        Console.WriteLine("Appuyez sur Entrer pour interagir avec un batiment ou un terrain : \n - 🏠 Home : rentrer dormir\n - 🛠️ Cabanon : pour agir dans le potager\n - 🏚️ Grange : pour voir l'inventaire des plantes, ainsi que vos récoltes\n");
+        Console.WriteLine("Appuyez sur Échap pour quitter le jeu.\n\n");
         Console.WriteLine("Appuyez sur une touche pour continuer...");
         Console.ReadKey();
 
