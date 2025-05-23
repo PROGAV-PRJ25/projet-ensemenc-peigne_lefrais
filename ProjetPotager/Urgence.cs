@@ -41,7 +41,7 @@ public class Urgence
             Console.WriteLine($"\n✅ Vous avez soigné {PlanteEnDanger.Nom} de la maladie {PlanteEnDanger.Maladie} !");
             Console.ResetColor();
 
-            PlanteEnDanger.Maladie = null;
+            PlanteEnDanger.Maladie = "";
             EstActive = false;
             PlanteEnDanger = null;
         }

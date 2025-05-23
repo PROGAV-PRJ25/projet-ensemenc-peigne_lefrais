@@ -12,7 +12,8 @@ public abstract class Plante
     public double BesoinEau { get; set; } // en % humidité
     public double BesoinLum { get; set; } // heures/j
     public double TemperaturePref { get; set; } // en °C
-    public string Maladie { get; set; }
+                                                // public string Maladie { get; set; }
+    public string Maladie { get; set; } = "";
     public double EspDeVie { get; set; }
     public double FruitsRecoltes { get; set; }
     public double CroissanceActuelle { get; set; } = 0;
@@ -23,7 +24,7 @@ public abstract class Plante
     public Plante(string nom, string nature, string saisonSemi, TypeTerrain terrainPref,
                   double espacement, double placeNecessaire, string vitesseCroissance,
                   double besoinEau, double besoinLum, double temperaturePref,
-                  string maladie, double espDeVie, double fruitsRecoltes)
+                  double espDeVie, double fruitsRecoltes)
     {
         Nom = nom;
         Nature = nature;
@@ -35,7 +36,7 @@ public abstract class Plante
         BesoinEau = besoinEau;
         BesoinLum = besoinLum;
         TemperaturePref = temperaturePref;
-        Maladie = maladie;
+        Maladie = "";
         EspDeVie = espDeVie;
         FruitsRecoltes = fruitsRecoltes;
     }
