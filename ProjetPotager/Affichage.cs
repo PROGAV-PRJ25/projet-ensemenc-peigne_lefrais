@@ -22,21 +22,20 @@ public class Affichage
     private List<Terrain> tousLesTerrains;
     private Actions actions;
     private Meteo meteo;
-    private ModeJeu mode;
+    private Urgence urgence;
 
-    public enum ModeJeu
-    {
-        Classique,
-        Urgence
-    }
+
 
     public Affichage()
     {
         meteo = new Meteo();
-        mode = ChoisirMode();
 
         // Utiliser la méthode statique pour créer les terrains variés
         tousLesTerrains = Terrain.CreerTousLesTerrains();
+
+        urgence = new Urgence();
+
+
 
         actions = new Actions(tousLesTerrains);
 
@@ -189,6 +188,12 @@ public class Affichage
         Console.SetCursorPosition(0, TERRAIN_ROWS * (GRID_SIZE + 3) + 2);
         Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("Déplace-toi avec les flèches. Entrée = action, Espace = tour, ESC = quitter.");
+
+        if (urgence.EstActive)
+        {
+            urgence.AfficherUrgence();
+        }
+
     }
 
     static void AfficherTerrainGraphique(int offsetX, int offsetY, int terrainNumber)
@@ -237,6 +242,20 @@ public class Affichage
             {
                 Console.Clear();
                 Console.WriteLine("Bienvenue dans la grange 🏚️ !");
+                if (urgence.EstActive)
+                {
+                    Console.WriteLine("\nUne plante est malade !");
+                    urgence.AfficherUrgence();
+                    Console.WriteLine("\nSouhaitez-vous la soigner ? (O/N)");
+
+                    var input = Console.ReadKey(true).Key;
+                    if (input == ConsoleKey.O)
+                    {
+                        urgence.SoignerPlante();
+                        Console.WriteLine("Appuie sur une touche pour continuer.");
+                        Console.ReadKey(true);
+                    }
+                }
                 Console.WriteLine("Inventaire des plantes disponibles :");
                 Console.WriteLine("- Menthe\n- Citron vert\n- Ananas\n- Cerisier\n- Cocotier\n- Canne à sucre");
                 Console.WriteLine("Plantes plantées :");
@@ -297,8 +316,7 @@ public class Affichage
 
     private void GererTour()
     {
-        if (mode == ModeJeu.Classique)
-        {
+
             // Exemple de menu simplifié (à étendre)
             Console.Clear();
             Console.WriteLine("Menu du tour :");
@@ -330,11 +348,18 @@ public class Affichage
                 Console.WriteLine("Traiter sélectionné (fonction non implémentée).");
                 Thread.Sleep(1000);
             }
-        }
-        else if (mode == ModeJeu.Urgence)
+
+        // Lancer une urgence avec une probabilité de 1 chance sur 3
+        Random rand = new Random();
+        if (!urgence.EstActive && rand.Next(3) == 0)
         {
-            Console.WriteLine("Gestion d'urgence (non implémentée).");
-            Thread.Sleep(1000);
+            // Extraire toutes les plantes en vie des terrains
+            var plantesVives = tousLesTerrains.SelectMany(t => t.Plantes)
+                                              .Where(p => p.EstVivante) // si tu as ce champ
+                                              .ToList();
+
+            if (plantesVives.Count > 0)
+                urgence.ActiverUrgence(plantesVives);
         }
 
         // Faire croître les plantes selon la météo
@@ -342,21 +367,5 @@ public class Affichage
         {
             plante.Croitre(meteo.Ensoleillement, meteo.Pluie, meteo.Temperature);
         }
-    }
-
-    private ModeJeu ChoisirMode()
-    {
-        Console.Clear();
-        Console.WriteLine("Choisissez un mode de jeu :");
-        Console.WriteLine("1 - Mode Classique");
-        Console.WriteLine("2 - Mode Urgence");
-        ConsoleKey key;
-        do
-        {
-            key = Console.ReadKey(true).Key;
-        } while (key != ConsoleKey.D1 && key != ConsoleKey.D2);
-
-        if (key == ConsoleKey.D1) return ModeJeu.Classique;
-        else return ModeJeu.Urgence;
     }
 }

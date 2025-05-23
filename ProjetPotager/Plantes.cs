@@ -1,14 +1,5 @@
 using Potager.Models;
 
-    // public enum TerrainPref
-    // {
-    //     SableuxAvecEau,
-    //     DraineHumide,
-    //     DraineFertile,
-    //     BordDeMer,
-    //     Calcaire,
-    //     SableuxDraine
-    // }
 public abstract class Plante
 {
     public string Nom { get; set; }
