@@ -41,13 +41,11 @@ public class Meteo
         Temperature = rand.Next(10, 36);        // de 10 à 35 °C
     }
 
-    public override string ToString()
-    {
-        return $"Météo du jour : {Ensoleillement}h de soleil, {Pluie}mm de pluie, {Temperature}°C.";
-    }
-
     public static Meteo CalculerMoyenneHebdo(List<Meteo> semaine)
     {
+        if (semaine == null || semaine.Count != 7)
+            throw new ArgumentException("La liste doit contenir exactement 7 jours de météo.");
+
         double totalEnsoleillement = 0;
         double totalPluie = 0;
         double totalTemperature = 0;
@@ -58,12 +56,34 @@ public class Meteo
             totalPluie += m.Pluie;
             totalTemperature += m.Temperature;
         }
-
         return new Meteo
         (
             ensoleillement: totalEnsoleillement / 7,
             pluie: totalPluie / 7,
             temperature: totalTemperature / 7
         );
+    }
+
+    public List<Meteo> GenererMeteoSemaine()
+    {
+        List<Meteo> semaine = new List<Meteo>();
+        for (int i = 0; i < 7; i++)
+        {
+            semaine.Add(new Meteo());
+        }
+        return semaine;
+    }
+
+    public void MettreAJourMoyenneHebdomadaire(List<Meteo> semaine)
+    {
+        Meteo moyenne = CalculerMoyenneHebdo(semaine);
+        this.Ensoleillement = moyenne.Ensoleillement;
+        this.Pluie = moyenne.Pluie;
+        this.Temperature = moyenne.Temperature;
+    }
+    
+     public override string ToString()
+    {
+        return $"Météo du jour : {Math.Round(Ensoleillement, 2)}h de soleil, {Math.Round(Pluie, 2)}mm de pluie, {Math.Round(Temperature, 2)}°C.";
     }
 }

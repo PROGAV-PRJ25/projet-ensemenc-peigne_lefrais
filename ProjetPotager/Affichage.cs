@@ -225,10 +225,30 @@ public class Affichage
             {
                 Console.Clear();
                 Console.WriteLine("Tu es rentré à la maison 🏠. Bonne nuit !");
-                Console.WriteLine("Un nouveau jour commence...");
-                meteo.GenererConditions();
-                Console.WriteLine("\nNouvelle météo :");
-                Console.WriteLine(meteo.ToString());
+                Console.WriteLine("Une nouvelle semaine est passée...");
+
+                // Générer une semaine de météo
+                var meteoSemaine = meteo.GenererMeteoSemaine(); // liste de 7 Meteo
+
+                // Faire avancer la simulation de 7 jours sans pause
+                for (int jour = 0; jour < 7; jour++)
+                {
+                    var meteoDuJour = meteoSemaine[jour];
+                    actions.PasserUnJour();  // méthode qui fait avancer la simulation d’un jour
+                }
+
+                // Mettre à jour la météo moyenne hebdo
+                meteo.MettreAJourMoyenneHebdomadaire(meteoSemaine);
+
+                // Affichage avec arrondi à 2 décimales
+                Console.WriteLine("\nNouvelle météo hebdomadaire :");
+                Console.WriteLine(
+                    $"Météo du jour : " +
+                    $"{Math.Round(meteo.Ensoleillement, 2)}h de soleil, " +
+                    $"{Math.Round(meteo.Pluie, 2)}mm de pluie, " +
+                    $"{Math.Round(meteo.Temperature, 2)}°C."
+                );
+
                 Console.WriteLine("\nAppuie sur une touche pour reprendre.");
                 Console.ReadKey(true);
             }

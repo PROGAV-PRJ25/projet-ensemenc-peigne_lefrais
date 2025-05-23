@@ -162,4 +162,18 @@ public class Actions
         Console.ReadKey(true);
     }
 
+    public void PasserUnJour()
+    {
+
+        // Par exemple, tu peux mettre à jour les plantes dans tous les terrains :
+        foreach (var terrain in terrains)
+        {
+            foreach (var plante in terrain.Plantes)
+            {
+                // Passer les conditions actuelles du terrain aux plantes
+                plante.Croitre(terrain.Luminosite, terrain.Humidite, terrain.Temperature);
+            }
+        }
+    }
+
 }
