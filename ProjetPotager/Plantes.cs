@@ -75,24 +75,6 @@ public abstract class Plante
         }
     }
 
-    public virtual void Planter()
-    {
-        Console.WriteLine($"🌱 {Nom} a été plantée !");
-        CroissanceActuelle = 0;
-        EstVivante = true;
-    }
-
-    public virtual void Arroser()
-    {
-        if (!EstVivante)
-        {
-            Console.WriteLine($"💀 {Nom} est morte et ne peut pas être arrosée...");
-            return;
-        }
-
-        Console.WriteLine($"💧 {Nom} a été arrosée !");
-        CroissanceActuelle += 1;
-    }
 
     public virtual void TraiterContreMaladie()
     {
@@ -113,25 +95,6 @@ public abstract class Plante
         }
     }
 
-    public virtual bool Recolter()
-    {
-        if (!EstVivante)
-        {
-            Console.WriteLine($"💀 {Nom} est morte. Pas de récolte possible.");
-            return false;
-        }
-
-        if (PeutEtreRecoltee())
-        {
-            Console.WriteLine($"🍒 {Nom} a été récoltée ! Quantité : {FruitsRecoltes}");
-            return true;
-        }
-        else
-        {
-            Console.WriteLine($"⏳ {Nom} n'est pas encore prête à être récoltée.");
-            return false;
-        }
-    }
 
     public virtual void AfficherInfos()
     {
