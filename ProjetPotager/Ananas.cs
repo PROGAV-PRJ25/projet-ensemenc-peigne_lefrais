@@ -1,7 +1,7 @@
 using Potager.Models;
 public class Ananas : Plante
 {
-    public Ananas() : base("Ananas", "Fruit", "Été", TypeTerrain.SableuxAvecEau,
+    public Ananas() : base("Ananas", "Fruit", "Été", TypeTerrain.SableuxDraine,
         70, 8, "Moyenne", 70, 8, 27, "Pourriture", 3, 1.8) { }  // 1.8 m²
 
 

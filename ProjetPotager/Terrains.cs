@@ -13,7 +13,7 @@ namespace Potager.Models
     public class Terrain
     {
         public TypeTerrain Type { get; set; }
-        public double Humidite { get; set; }       // entre 0 et 1
+        public double Humidite { get; set; }       // en pourcentage
         public double Luminosite { get; set; }     // en heures/jour
         public double Temperature { get; set; }    // en °C
         public double SurfaceTotale { get; set; }  // en m²
@@ -22,7 +22,7 @@ namespace Potager.Models
 
         public double SurfaceOccupee => Plantes.Sum(p => p.PlaceNecessaire);
 
-        private const double TOLERANCE = 0.2; // ±20%
+        private const double TOLERANCE = 0.5; // ±50%
 
         public Terrain() { }
 
@@ -61,7 +61,7 @@ namespace Potager.Models
         public override string ToString()
         {
             return $"Terrain : {Type}\n" +
-                   $"Humidité : {Humidite * 100:F1}%\n" +
+                   $"Humidité : {Humidite:F1}%\n" +
                    $"Luminosité : {Luminosite} h/jour\n" +
                    $"Température moyenne : {Temperature}°C\n" +
                    $"Surface utilisée : {SurfaceOccupee:F2} / {SurfaceTotale} m²\n" +
@@ -75,7 +75,7 @@ namespace Potager.Models
                 new Terrain
                 {
                     Type = TypeTerrain.SableuxAvecEau,
-                    Humidite = 0.75,
+                    Humidite = 100,
                     Luminosite = 8,
                     Temperature = 26,
                     SurfaceTotale = 20
@@ -83,7 +83,7 @@ namespace Potager.Models
                 new Terrain
                 {
                     Type = TypeTerrain.DraineHumide,
-                    Humidite = 0.65,
+                    Humidite = 65,
                     Luminosite = 7.5,
                     Temperature = 23,
                     SurfaceTotale = 18
@@ -91,7 +91,7 @@ namespace Potager.Models
                 new Terrain
                 {
                     Type = TypeTerrain.DraineFertile,
-                    Humidite = 0.55,
+                    Humidite = 55,
                     Luminosite = 9,
                     Temperature = 21,
                     SurfaceTotale = 25
@@ -99,7 +99,7 @@ namespace Potager.Models
                 new Terrain
                 {
                     Type = TypeTerrain.BordDeMer,
-                    Humidite = 0.7,
+                    Humidite = 70,
                     Luminosite = 10,
                     Temperature = 28,
                     SurfaceTotale = 15
@@ -107,7 +107,7 @@ namespace Potager.Models
                 new Terrain
                 {
                     Type = TypeTerrain.Calcaire,
-                    Humidite = 0.45,
+                    Humidite = 45,
                     Luminosite = 6.5,
                     Temperature = 20,
                     SurfaceTotale = 12
@@ -115,7 +115,7 @@ namespace Potager.Models
                 new Terrain
                 {
                     Type = TypeTerrain.SableuxDraine,
-                    Humidite = 0.6,
+                    Humidite = 60,
                     Luminosite = 8.5,
                     Temperature = 24,
                     SurfaceTotale = 16
