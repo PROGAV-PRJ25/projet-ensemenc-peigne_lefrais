@@ -59,7 +59,7 @@ public static class AffichageTerrainDetail
             CitronVert => "🍋",
             Cerisier => "🍒",
             CanneASucre => "🍬",
-            _ => "🌱" // Plante générique
+            _ => "🌱" // Plante en général
         };
     }
 }

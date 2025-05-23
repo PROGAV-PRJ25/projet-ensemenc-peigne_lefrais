@@ -39,7 +39,7 @@ public class Affichage
 
         actions = new Actions(tousLesTerrains);
 
-        // Position initiale du joueur : sur Home (ligne bâtiments)
+        // Position initiale du joueur : sur Home (ligne des bâtiments)
         joueurY = batimentY;
         joueurX = homeX;
     }
@@ -136,9 +136,9 @@ public class Affichage
     {
         Console.ForegroundColor = ConsoleColor.White;
 
-        // Affichage bâtiments
+        // Affichage des 3 bâtiments
 
-        // HOME
+        // Maison
         Console.SetCursorPosition(homeX, batimentY);
         Console.ForegroundColor = ConsoleColor.Green;
         if (joueurY == batimentY && joueurX == homeX)
@@ -146,7 +146,7 @@ public class Affichage
         else
             Console.Write("🏠Home");
 
-        // CABANON
+        // Cabanon
         Console.SetCursorPosition(cabanonX, batimentY);
         Console.ForegroundColor = ConsoleColor.Yellow;
         if (joueurY == batimentY && joueurX == cabanonX)
@@ -154,7 +154,7 @@ public class Affichage
         else
             Console.Write("🛠️Cabanon");
 
-        // GRANGE
+        // Grange
         Console.SetCursorPosition(grangeX, batimentY);
         Console.ForegroundColor = ConsoleColor.Cyan;
         if (joueurY == batimentY && joueurX == grangeX)
@@ -162,7 +162,7 @@ public class Affichage
         else
             Console.Write("🏚️ Grange");
 
-        // Affichage terrains
+        // Affichage des terrains
         for (int terrainIndex = 0; terrainIndex < TERRAIN_COLS * TERRAIN_ROWS; terrainIndex++)
         {
             int row = terrainIndex / TERRAIN_COLS;
@@ -174,17 +174,17 @@ public class Affichage
             AfficherTerrainGraphique(startX, startY, terrainIndex + 1);
         }
 
-        // Affichage joueur
+        // Affichage du joueur -> plus fun avec un petit emoji de jardinier (malheureusement la jardinière ne fonctionnait pas...)
         Console.SetCursorPosition(joueurX, joueurY);
         Console.ForegroundColor = ConsoleColor.Red;
         Console.Write("👨");
 
-        // Affichage météo
+        // Affichage de la météo
         Console.SetCursorPosition(0, TERRAIN_ROWS * (GRID_SIZE + 3));
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine(meteo.ToString());
 
-        // Instructions
+        // Instructions de jeu 
         Console.SetCursorPosition(0, TERRAIN_ROWS * (GRID_SIZE + 3) + 2);
         Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("Déplace-toi avec les flèches. Entrée = action, Espace = accès rapide cabanon, ECHAP = quitter."); 
@@ -228,7 +228,7 @@ public class Affichage
                 Console.WriteLine("Une nouvelle semaine est passée...");
 
                 // Générer une semaine de météo
-                var meteoSemaine = meteo.GenererMeteoSemaine(); // liste de 7 Meteo
+                var meteoSemaine = meteo.GenererMeteoSemaine(); // liste de 7 meteo
 
                 // Faire avancer la simulation de 7 jours sans pause
                 for (int jour = 0; jour < 7; jour++)
@@ -240,7 +240,7 @@ public class Affichage
                 // Mettre à jour la météo moyenne hebdo
                 meteo.MettreAJourMoyenneHebdomadaire(meteoSemaine);
 
-                // Affichage avec arrondi à 2 décimales
+                // Affichage avec arrondi à 2 apres la virgule
                 Console.WriteLine("\nNouvelle météo hebdomadaire :");
                 Console.WriteLine(
                     $"Météo du jour : " +
@@ -277,7 +277,7 @@ public class Affichage
                     }
                 }
                 Console.WriteLine("Inventaire des plantes disponibles :");
-                Console.WriteLine("- Menthe\n- Citron vert\n- Ananas\n- Cerisier\n- Cocotier\n- Canne à sucre");
+                Console.WriteLine("- Menthe\n- Citron vert\n- Ananas\n- Cerisier\n- Cocotier\n- Canne à sucre\n");
                 Console.WriteLine("Plantes plantées :");
                 foreach (var terrain in tousLesTerrains)
                 {
@@ -296,7 +296,7 @@ public class Affichage
         }
         else
         {
-            // Le joueur n'est pas sur la ligne des bâtiments, donc peut être sur un terrain
+            // Le joueur n'est pas sur la ligne des bâtiments donc peut être sur un terrain
             int index = ObtenirIndexTerrainDepuisPosition(joueurX, joueurY);
             if (index != -1)
             {
@@ -305,7 +305,7 @@ public class Affichage
             }
             else
             {
-                // Optionnel : afficher un message si pas sur un terrain
+                // afficher un message si pas sur un terrain mais appuie sur entrer
                 Console.WriteLine("Pas sur un terrain valide.");
                 Console.ReadKey(true);
             }
@@ -336,8 +336,7 @@ public class Affichage
 
     private void GererTour()
     {
-
-            // Exemple de menu simplifié (à étendre)
+            // menu d'actions à faire dans le potager 
             Console.Clear();
             Console.WriteLine("Actions possibles :");
             Console.WriteLine("1. Arroser");
@@ -375,14 +374,14 @@ public class Affichage
         {
             // Extraire toutes les plantes en vie des terrains
             var plantesVives = tousLesTerrains.SelectMany(t => t.Plantes)
-                                              .Where(p => p.EstVivante) // si tu as ce champ
+                                              .Where(p => p.EstVivante) 
                                               .ToList();
 
             if (plantesVives.Count > 0)
                 urgence.ActiverUrgence(plantesVives);
         }
 
-        // Faire croître les plantes selon la météo
+        // Faire grandir les plantes selon la météo
         foreach (var plante in tousLesTerrains.SelectMany(t => t.Plantes))
         {
             plante.Croitre(meteo.Ensoleillement, meteo.Pluie, meteo.Temperature);

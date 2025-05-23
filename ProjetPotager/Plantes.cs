@@ -12,7 +12,6 @@ public abstract class Plante
     public double BesoinEau { get; set; } // en % humidité
     public double BesoinLum { get; set; } // heures/j
     public double TemperaturePref { get; set; } // en °C
-                                                // public string Maladie { get; set; }
     public string Maladie { get; set; } = "";
     public double EspDeVie { get; set; }
     public double FruitsRecoltes { get; set; }
@@ -95,15 +94,14 @@ public abstract class Plante
         }
 
         // Amélioration de la croissance grâce à l'arrosage
-        CroissanceActuelle += 2;  // par exemple on booste la croissance de 2 unités
+        CroissanceActuelle += 2;  // on booste la croissance de 2 unités
 
         // Réduction du risque ou guérison partielle de maladie (si maladie non vide)
         if (!string.IsNullOrEmpty(Maladie))
         {
-            // Ici on peut imaginer que l'arrosage soigne un peu la plante
+            // on peut imaginer que l'arrosage soigne un peu la plante
             Console.WriteLine($"💧 {Nom} bénéficie d'un bon arrosage, la maladie {Maladie} est moins agressive.");
-            // Par simplicité, on peut choisir de diminuer le risque ou réduire la maladie
-            // Exemple : on supprime la maladie 50% du temps (à ajuster selon la logique souhaitée)
+            // diminuer le risque ou réduire la maladie pour que ce soit plus simple 
             if (new Random().NextDouble() > 0.5)
             {
                 Maladie = "";
@@ -118,5 +116,3 @@ public abstract class Plante
 
 }
 
-
-// Classes dérivées pour chaque type de plante avec comportements spécifiques dans les autres fichiers 

@@ -39,9 +39,9 @@ public class Actions
         }
 
         Console.Clear();
-        Console.WriteLine("╔════════════════════════════════════════════════════════════════════════════════════════════╗");
-        Console.WriteLine("║                             🔍 COMPARAISON TERRAIN / PLANTE                                ║");
-        Console.WriteLine("╚════════════════════════════════════════════════════════════════════════════════════════════╝");
+        Console.WriteLine("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        Console.WriteLine("║                                                 🔍 COMPARAISON TERRAIN / PLANTE                                            ║");
+        Console.WriteLine("╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
 
         Console.WriteLine($"\n🌱 Plante choisie : {plante.Nom}");
         Console.WriteLine("╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
@@ -118,7 +118,7 @@ public class Actions
 
             Console.WriteLine($"\nTerrain {choix} arrosé. Humidité : {ancienneHumidite:F2} → {terrain.Humidite:F2}");
 
-            // Optionnel : effet direct sur les plantes
+            // Effet direct sur les plantes
             foreach (var plante in terrain.Plantes)
             {
                 plante.BeneficierArrosage();
@@ -149,7 +149,6 @@ public class Actions
                 Console.WriteLine($"✔️ {plante.GetType().Name} récoltée sur Terrain {terrains.IndexOf(terrain) + 1}.");
                 terrain.Plantes.Remove(plante); // Retirer la plante récoltée
                 nbPlantesRecoltees++;
-                // Ici tu pourrais l'ajouter à un inventaire si tu en as un
             }
         }
 
@@ -165,7 +164,7 @@ public class Actions
     public void PasserUnJour()
     {
 
-        // Par exemple, tu peux mettre à jour les plantes dans tous les terrains :
+        // Mettre à jour les plantes dans tous les terrains :
         foreach (var terrain in terrains)
         {
             foreach (var plante in terrain.Plantes)

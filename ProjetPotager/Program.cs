@@ -3,7 +3,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        // 1. Créer la liste des terrains
+        // la liste des terrains
         List<Terrain> tousLesTerrains = new List<Terrain>
         {
             new Terrain
@@ -56,13 +56,13 @@ class Program
             }
         };
 
-        // 2. Instancier la classe Actions (ou autre classe gestionnaire)
+        // instanciation de la classe Actions 
         Actions actions = new Actions(tousLesTerrains);
 
-        // 3. Instancier l'affichage et lancer la boucle de jeu
+        // instanciation de l'affichage pour lancer la boucle de jeu
         Affichage affichage = new Affichage();
 
-        // Lancer l'affichage / boucle principale
+        // Lancer l'affichage 
         affichage.LancerPartie();
     }
 }

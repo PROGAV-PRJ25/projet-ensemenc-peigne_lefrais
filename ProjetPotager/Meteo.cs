@@ -12,7 +12,7 @@ public class Meteo
         GenererConditions();
     }
 
-    // deuxieme constructeur de météo pour que CalculerMoyenneHebdo() puisse retourner un objet Meteo valide
+    // deuxieme constructeur de météo pour que CalculerMoyenneHebdo() puisse retourner un objet meteo valide
     public Meteo(double ensoleillement, double pluie, double temperature)
     {
         Ensoleillement = ensoleillement;
