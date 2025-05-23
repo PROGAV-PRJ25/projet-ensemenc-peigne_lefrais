@@ -255,6 +255,44 @@ public class Affichage
                 Console.ReadKey(true);
             }
         }
+        else
+        {
+            // Le joueur n'est pas sur la ligne des bâtiments, donc peut être sur un terrain
+            int index = ObtenirIndexTerrainDepuisPosition(joueurX, joueurY);
+            if (index != -1)
+            {
+                var terrain = tousLesTerrains[index];
+                AffichageTerrainDetail.Afficher(terrain, index + 1);
+            }
+            else
+            {
+                // Optionnel : afficher un message si pas sur un terrain
+                Console.WriteLine("Pas sur un terrain valide.");
+                Console.ReadKey(true);
+            }
+        }
+    }
+
+    private int ObtenirIndexTerrainDepuisPosition(int x, int y)
+    {
+        for (int i = 0; i < TERRAIN_COLS * TERRAIN_ROWS; i++)
+        {
+            int row = i / TERRAIN_COLS;
+            int col = i % TERRAIN_COLS;
+
+            int startX = col * (GRID_SIZE * CELL_WIDTH + 4);
+            int startY = 2 + row * (GRID_SIZE + 3);
+
+            int endX = startX + GRID_SIZE * CELL_WIDTH;
+            int endY = startY + GRID_SIZE;
+
+            if (x >= startX && x <= endX && y >= startY && y <= endY)
+            {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     private void GererTour()
