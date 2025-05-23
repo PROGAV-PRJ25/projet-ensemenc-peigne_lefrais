@@ -113,7 +113,6 @@ public class Affichage
             }
 
             Thread.Sleep(100);
-            meteo.GenererConditions();
             Console.Clear();
         }
 
