@@ -12,6 +12,14 @@ public class Meteo
         GenererConditions();
     }
 
+    // deuxieme constructeur de météo pour que CalculerMoyenneHebdo() puisse retourner un objet Meteo valide
+    public Meteo(double ensoleillement, double pluie, double temperature)
+    {
+        Ensoleillement = ensoleillement;
+        Pluie = pluie;
+        Temperature = temperature;
+    }
+
     public void GenererConditions()
     {
         // On génère plus de beau temps que de mauvais :
@@ -36,5 +44,26 @@ public class Meteo
     public override string ToString()
     {
         return $"Météo du jour : {Ensoleillement}h de soleil, {Pluie}mm de pluie, {Temperature}°C.";
+    }
+
+    public static Meteo CalculerMoyenneHebdo(List<Meteo> semaine)
+    {
+        double totalEnsoleillement = 0;
+        double totalPluie = 0;
+        double totalTemperature = 0;
+
+        foreach (var m in semaine)
+        {
+            totalEnsoleillement += m.Ensoleillement;
+            totalPluie += m.Pluie;
+            totalTemperature += m.Temperature;
+        }
+
+        return new Meteo
+        (
+            ensoleillement: totalEnsoleillement / 7,
+            pluie: totalPluie / 7,
+            temperature: totalTemperature / 7
+        );
     }
 }

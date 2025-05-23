@@ -124,5 +124,23 @@ namespace Potager.Models
                 }
             };
         }
+
+        public void MettreAJourConditions(Meteo meteo)
+        {
+            // Simule l'effet météo sur le terrain
+            Humidite = Math.Min(100, Humidite + meteo.Pluie); // la pluie augmente l'humidité
+            Luminosite = meteo.Ensoleillement; // la météo dicte directement l'ensoleillement
+            Temperature = meteo.Temperature;   // idem pour la température
+
+            Console.WriteLine($"🌍 Terrain {Type} mis à jour : {Humidite}% humidité, {Luminosite}h lumière, {Temperature}°C");
+        }
+        
+        public void AppliquerMeteoAuxPlantes()
+        {
+            foreach (var plante in Plantes)
+            {
+                plante.Croitre(Luminosite, Humidite, Temperature);
+            }
+        }
     }
 }
