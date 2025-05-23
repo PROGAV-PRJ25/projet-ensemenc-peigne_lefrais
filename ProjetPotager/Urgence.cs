@@ -8,6 +8,7 @@ public class Urgence
 
     private static Random random = new Random();
 
+
     public void ActiverUrgence(List<Plante> plantes)
     {
         if (plantes == null || plantes.Count == 0)
