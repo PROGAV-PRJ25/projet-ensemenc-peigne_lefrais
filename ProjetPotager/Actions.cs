@@ -7,7 +7,7 @@ public class Actions
     {
         this.terrains = terrains;
     }
-    
+
     public void PlanterUneGraine()
     {
         Console.Clear();
@@ -129,6 +129,35 @@ public class Actions
         else
         {
             Console.WriteLine("Choix invalide.");
+        }
+
+        Console.WriteLine("\nAppuie sur une touche pour continuer.");
+        Console.ReadKey(true);
+    }
+
+    public void Recolter(List<Terrain> terrains)
+    {
+        Console.Clear();
+        Console.WriteLine("Récolte en cours...\n");
+
+        int nbPlantesRecoltees = 0;
+
+        foreach (var terrain in terrains)
+        {
+            var plantesMatures = terrain.Plantes.Where(p => p.EstMature).ToList();
+
+            foreach (var plante in plantesMatures)
+            {
+                Console.WriteLine($"✔️ {plante.GetType().Name} récoltée sur Terrain {terrains.IndexOf(terrain) + 1}.");
+                terrain.Plantes.Remove(plante); // Retirer la plante récoltée
+                nbPlantesRecoltees++;
+                // Ici tu pourrais l'ajouter à un inventaire si tu en as un
+            }
+        }
+
+        if (nbPlantesRecoltees == 0)
+        {
+            Console.WriteLine("Aucune plante n'était prête à être récoltée.");
         }
 
         Console.WriteLine("\nAppuie sur une touche pour continuer.");

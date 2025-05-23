@@ -24,7 +24,9 @@ public abstract class Plante
     public string Maladie { get; set; }
     public double EspDeVie { get; set; }
     public double FruitsRecoltes { get; set; }
-    public double CroissanceActuelle { get; set; }
+    public double CroissanceActuelle { get; set; } = 0;
+    public double SeuilMaturite { get; set; } = 10; //valeur que l'on pourrait rendre spécifique pour chaque plante 
+    public bool EstMature { get; set; } = false;
     public bool EstVivante { get; set; } = true;
 
     public Plante(string nom, string nature, string saisonSemi, TerrainPref terrainPref,
@@ -72,7 +74,14 @@ public abstract class Plante
         {
             CroissanceActuelle += conditionsRemplies;
             Console.WriteLine($"🌿 {Nom} pousse bien ! Croissance actuelle : {CroissanceActuelle}");
+            
+            if (!EstMature && CroissanceActuelle >= SeuilMaturite)
+            {
+                EstMature = true;
+                Console.WriteLine($"🎉 {Nom} est maintenant mature et prête à être récoltée !");
+            }
         }
+        
     }
 
     public virtual void Planter()

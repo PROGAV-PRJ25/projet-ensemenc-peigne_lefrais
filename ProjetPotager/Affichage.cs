@@ -283,9 +283,10 @@ public class Affichage
             }
             else if (key == ConsoleKey.D3)
             {
-                Console.WriteLine("Récolter sélectionné (fonction non implémentée).");
+                actions.Recolter(tousLesTerrains);
                 Thread.Sleep(1000);
             }
+
             else if (key == ConsoleKey.D4)
             {
                 Console.WriteLine("Traiter sélectionné (fonction non implémentée).");
