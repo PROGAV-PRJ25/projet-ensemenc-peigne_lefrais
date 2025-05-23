@@ -1,10 +1,10 @@
 using Potager.Models;
 public class CitronVert : Plante
 {
-    public CitronVert() : base("Citron vert", "Vivace", "Mai", TerrainPref.DraineFertile,
-                   400, 1700, "Lente (45 cm/an)", 1000, 80, 25, "Gommose, mildiou", 40, 150)
-    { }
+    public CitronVert() : base("Citron vert", "Fruit", "Printemps", TerrainPref.DraineHumide,
+        60, 6, "Moyenne", 90, 7, 26, "Pucerons", 3, 1.5) { }  // 1.5 m²
 
-    public override string AffichageSymbole() => "CIV";
-    public override bool PeutEtreRecoltee() => CroissanceActuelle >= 15;
+    public override string AffichageSymbole() => "🍋";
+
+    public override bool PeutEtreRecoltee() => CroissanceActuelle >= 30;
 }

@@ -1,10 +1,10 @@
 using Potager.Models;
 public class Cerisier : Plante
 {
-    public Cerisier() : base("Cerisier", "Vivace", "Février", TerrainPref.Calcaire,
-                   500, 1000, "Moyenne/rapide", 1300, 100, 20, "Champignons", 50, 300)
-    { }
+    public Cerisier() : base("Cerisier", "Fruit", "Printemps", TerrainPref.DraineFertile,
+        55, 9, "Moyenne", 100, 9, 24, "Chancre", 4, 2.5) { }  // 2.5 m²
 
-    public override string AffichageSymbole() => "CER";
-    public override bool PeutEtreRecoltee() => CroissanceActuelle >= 20;
+    public override string AffichageSymbole() => "🍒";
+
+    public override bool PeutEtreRecoltee() => CroissanceActuelle >= 40;
 }

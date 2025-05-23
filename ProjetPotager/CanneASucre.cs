@@ -1,10 +1,10 @@
 using Potager.Models;
 public class CanneASucre : Plante
 {
-    public CanneASucre() : base("Canne à sucre", "Vivace", "Septembre", TerrainPref.SableuxAvecEau,
-                   120, 20, "Lente (1 an)", 1500, 100, 16, "Mildiou, rouille, gommose", 10, 180)
-    { }
+    public CanneASucre() : base("Canne à sucre", "Sucre", "Été", TerrainPref.SableuxAvecEau,
+        70, 8, "Moyenne", 120, 10, 28, "Rouille", 3, 2.0) { }  // 2 m²
 
-    public override string AffichageSymbole() => "CQS";
-    public override bool PeutEtreRecoltee() => CroissanceActuelle >= 10;
+    public override string AffichageSymbole() => "🌾";
+
+    public override bool PeutEtreRecoltee() => CroissanceActuelle >= 5;
 }

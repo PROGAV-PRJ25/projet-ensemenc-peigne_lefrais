@@ -61,7 +61,7 @@ public class Actions
             // Couleur selon compatibilité
             Console.ForegroundColor = estAdapte ? ConsoleColor.Green : ConsoleColor.Red;
 
-            Console.WriteLine($"║ {i + 1,-2} {icone} ║ {t.Type,-18} ║ {t.Humidite * 100,6:F1}% ║ {t.Luminosite,8}h ║ {t.Temperature,10}°C ║ {t.SurfaceOccupée,4} / {t.SurfaceTotale,-9} ║ {t.Plantes.Count,6} plante(s) ║");
+            Console.WriteLine($"║ {i + 1,-2} {icone} ║ {t.Type,-18} ║ {t.Humidite * 100,6:F1}% ║ {t.Luminosite,8}h ║ {t.Temperature,10}°C ║ {t.SurfaceOccupee,4} / {t.SurfaceTotale,-9} ║ {t.Plantes.Count,6} plante(s) ║");
 
             Console.ResetColor(); // On revient à la couleur normale
         }
@@ -77,11 +77,13 @@ public class Actions
 
         Terrain terrain = terrains[indexTerrain - 1];
 
+        // Si le terrain n’est pas adapté, on affiche juste un avertissement
         if (!terrain.EstAdapté(plante))
         {
             Console.WriteLine("⚠️ Attention : Le terrain n'est pas adapté à cette plante. Elle risque de ne pas survivre longtemps.");
             Console.Write("Souhaitez-vous planter malgré tout ? (o/n) : ");
             string? reponse = Console.ReadLine()?.ToLower();
+
             if (reponse != "o")
             {
                 Console.WriteLine("Plantation annulée.");
@@ -89,14 +91,10 @@ public class Actions
             }
         }
 
-        if (terrain.SurfaceOccupée + plante.PlaceNecessaire > terrain.SurfaceTotale)
-        {
-            Console.WriteLine("❌ Il n'y a pas assez d'espace pour cette plante sur ce terrain.");
-            return;
-        }
+        // On essaie quand même d'ajouter la plante (vérifie la surface uniquement)
+        string resultat = terrain.AjouterPlante(plante);
+        Console.WriteLine(resultat);
 
-        terrain.Plantes.Add(plante);
-        Console.WriteLine($"✅ {plante.GetType().Name} plantée avec succès !");
         Console.WriteLine("\nAppuie sur une touche pour continuer...");
         Console.ReadKey(true);
     }

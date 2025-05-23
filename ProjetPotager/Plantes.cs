@@ -18,9 +18,9 @@ public abstract class Plante
     public double Espacement { get; set; }
     public double PlaceNecessaire { get; set; }
     public string VitesseCroissance { get; set; }
-    public double BesoinEau { get; set; }
-    public double BesoinLum { get; set; }
-    public double TemperaturePref { get; set; }
+    public double BesoinEau { get; set; } // en % humidité
+    public double BesoinLum { get; set; } // heures/j
+    public double TemperaturePref { get; set; } // en °C
     public string Maladie { get; set; }
     public double EspDeVie { get; set; }
     public double FruitsRecoltes { get; set; }
