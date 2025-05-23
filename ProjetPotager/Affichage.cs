@@ -187,7 +187,7 @@ public class Affichage
         // Instructions
         Console.SetCursorPosition(0, TERRAIN_ROWS * (GRID_SIZE + 3) + 2);
         Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine("Déplace-toi avec les flèches. Entrée = action, Espace = tour, ESC = quitter.");
+        Console.WriteLine("Déplace-toi avec les flèches. Entrée = action, Espace = accès rapide cabanon, ECHAP = quitter."); 
 
         if (urgence.EstActive)
         {
@@ -339,9 +339,9 @@ public class Affichage
 
             // Exemple de menu simplifié (à étendre)
             Console.Clear();
-            Console.WriteLine("Menu du tour :");
+            Console.WriteLine("Actions possibles :");
             Console.WriteLine("1. Arroser");
-            Console.WriteLine("2. Semer");
+            Console.WriteLine("2. Planter");
             Console.WriteLine("3. Récolter");
             Console.WriteLine("4. Soigner ma plante");
             Console.WriteLine("Autre : revenir");

@@ -84,6 +84,6 @@ public class Meteo
     
      public override string ToString()
     {
-        return $"Météo du jour : {Math.Round(Ensoleillement, 2)}h de soleil, {Math.Round(Pluie, 2)}mm de pluie, {Math.Round(Temperature, 2)}°C.";
+        return $"Météo : {Math.Round(Ensoleillement, 2)}h de soleil, {Math.Round(Pluie, 2)}mm de pluie, {Math.Round(Temperature, 2)}°C.";
     }
 }
